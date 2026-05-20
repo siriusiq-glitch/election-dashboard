@@ -124,6 +124,7 @@ tr:hover td{filter:brightness(.97);}
     <span class="rlabel">재보궐</span>
     <button class="ntab" onclick="showSec('bnorth',this)">북구갑</button>
     <button class="ntab" onclick="showSec('pyeongtaek',this)">평택을</button>
+    <button class="ntab" onclick="showSec('others2',this)">기타</button>
   </div>
 </div>
 
@@ -169,6 +170,7 @@ tr:hover td{filter:brightness(.97);}
 <div id="sec-gangwon" class="sec"><div class="chart-wrap"><div class="card" id="card-gangwon"></div></div></div>
 <div id="sec-chungnam" class="sec"><div class="chart-wrap"><div class="card" id="card-chungnam"></div></div></div>
 <div id="sec-others" class="sec"><div class="chart-wrap" style="max-width:760px;margin:0 auto;padding:0 16px;"><div class="other-card" id="card-others"></div></div></div>
+<div id="sec-others2" class="sec"><div class="chart-wrap" style="max-width:760px;margin:0 auto;padding:0 16px;"><div class="other-card" id="card-others2"></div></div></div>
 <div id="sec-bnorth" class="sec"><div class="chart-wrap"><div class="card" id="card-bnorth"></div></div></div>
 <div id="sec-pyeongtaek" class="sec"><div class="chart-wrap"><div class="card" id="card-pyeongtaek"></div></div></div>
 
@@ -445,7 +447,7 @@ function defRegion(prefix, cfg){
 
 function initSection(id){
   const cfg = REGION_CONFIGS[id];
-  if(!cfg){ initOther(id); return; }
+  if(!cfg || id==='others2'){ initOther(id); return; }
   buildRegionCard(id, cfg);
   const rows = cfg.scenarios ? cfg.scenarios[0].rows : cfg.rows;
   const gapFn = cfg.scenarios ? cfg.scenarios[0].gapFn : cfg.gapFn;
@@ -774,48 +776,57 @@ defRegion('pyeongtaek',{
 // 기타 지역
 // ============================================================
 function initOther(id){
-  if(id!=='others') return;
-  const card = document.getElementById('card-others');
-  card.innerHTML = `
-    <div style="font-size:22px;font-weight:900;letter-spacing:-1px;margin-bottom:4px;">기타 지역</div>
-    <div class="other-sub">여론조사 미비 지역 판세 요약 · 지역 데이터 등 반영</div>
-    <div class="other-sec">광역자치단체장</div>
-    <div style="overflow-x:auto"><table>
-      <thead><tr><th>지역</th><th>판세</th><th>비고</th></tr></thead>
-      <tbody>
-        <tr class="o-우세"><td>경북</td><td>우세</td><td></td></tr>
-        <tr class="o-열세"><td>충북</td><td>열세</td><td>4.28~29 신용한 49.5% 김영환 38.7% (리얼·ARS)</td></tr>
-        <tr class="o-열세"><td>경기</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>인천</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>대전</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>세종</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>광주·전남</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>전북</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>제주</td><td>열세</td><td></td></tr>
-      </tbody>
-    </table></div>
-    <div class="other-sec">재·보궐선거</div>
-    <div style="overflow-x:auto"><table>
-      <thead><tr><th>지역</th><th>판세</th><th>비고</th></tr></thead>
-      <tbody>
-        <tr class="o-경합-우세"><td>대구 달성군</td><td>경합-우세</td><td>5.17~18 이진숙 48.5% 박형룡 41.7% (대구MBC-에이스·ARS)</td></tr>
-        <tr class="o-우세"><td>울산 남구갑</td><td>우세</td><td>5.4~5 전태진 36.4%>김태규 29.9% (꽃·전화) / 김태규 46.7%>전태진 31% (KBS·ARS) — 조사 방향 상반, 지역 데이터 감안 우세 판정</td></tr>
-        <tr class="o-경합-light"><td>충남 공주·부여·청양</td><td>경합</td><td>5.17~18 김영빈 35% 윤용근 32% (대전MBC-코리아·전화)</td></tr>
-        <tr class="o-열세"><td>경기 안산시 갑</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>경기 하남시 갑</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>인천 계양구 을</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>인천 연수구 갑</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>충남 아산시 을</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>전북 군산·김제·부안 갑</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>전북 군산·김제·부안 을</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>광주 광산구 을</td><td>열세</td><td></td></tr>
-        <tr class="o-열세"><td>제주 서귀포시</td><td>열세</td><td></td></tr>
-      </tbody>
-    </table></div>
-    <div style="margin-top:12px;font-size:10px;color:#94a3b8;line-height:1.6;padding:8px 10px;border-left:2px solid #e2e8f0;">
-      ※ 판세 기본 분류: 최근 여론조사 3건 평균 격차 / 5% 미만→경합 / 5~10%→경합-열세·경합-우세 / 10% 이상→열세·우세 (+지역 데이터 일부 반영)<br>
-      ※ 짙은 파랑=열세 · 연파랑=경합-열세 · 하늘=경합 · 연빨강=경합-우세 · 짙은 빨강=우세
-    </div>`;
+  const NOTE = `<div style="margin-top:12px;font-size:10px;color:#94a3b8;line-height:1.6;padding:8px 10px;border-left:2px solid #e2e8f0;">
+    ※ 판세 기본 분류: 최근 여론조사 3건 평균 격차 / 5% 미만→경합 / 5~10%→경합-열세·경합-우세 / 10% 이상→열세·우세 (+지역 데이터 일부 반영)<br>
+    ※ 짙은 파랑=열세 · 연파랑=경합-열세 · 하늘=경합 · 연빨강=경합-우세 · 짙은 빨강=우세
+  </div>`;
+
+  if(id==='others'){
+    const card = document.getElementById('card-others');
+    card.innerHTML = `
+      <div style="font-size:22px;font-weight:900;letter-spacing:-1px;margin-bottom:4px;">기타 지역 — 광역자치단체장</div>
+      <div class="other-sub">여론조사 미비 지역 판세 요약 · 지역 데이터 등 반영</div>
+      <div style="overflow-x:auto;margin-top:12px;"><table>
+        <thead><tr><th>지역</th><th>판세</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr class="o-우세"><td>경북</td><td>우세</td><td></td></tr>
+          <tr class="o-열세"><td>충북</td><td>열세</td><td>4.28~29 신용한 49.5% 김영환 38.7% (리얼·ARS)</td></tr>
+          <tr class="o-열세"><td>경기</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>인천</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>대전</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>세종</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>광주·전남</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>전북</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>제주</td><td>열세</td><td></td></tr>
+        </tbody>
+      </table></div>
+      ${NOTE}`;
+  }
+
+  if(id==='others2'){
+    const card = document.getElementById('card-others2');
+    card.innerHTML = `
+      <div style="font-size:22px;font-weight:900;letter-spacing:-1px;margin-bottom:4px;">기타 지역 — 재·보궐선거</div>
+      <div class="other-sub">여론조사 미비 지역 판세 요약 · 지역 데이터 등 반영</div>
+      <div style="overflow-x:auto;margin-top:12px;"><table>
+        <thead><tr><th>지역</th><th>판세</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr class="o-경합-우세"><td>대구 달성군</td><td>경합-우세</td><td>5.17~18 이진숙 48.5% 박형룡 41.7% (대구MBC-에이스·ARS)</td></tr>
+          <tr class="o-우세"><td>울산 남구갑</td><td>우세</td><td>5.4~5 전태진 36.4%>김태규 29.9% (꽃·전화) / 김태규 46.7%>전태진 31% (KBS·ARS) — 조사 방향 상반, 지역 데이터 감안 우세 판정</td></tr>
+          <tr class="o-경합-light"><td>충남 공주·부여·청양</td><td>경합</td><td>5.17~18 김영빈 35% 윤용근 32% (대전MBC-코리아·전화)</td></tr>
+          <tr class="o-열세"><td>경기 안산시 갑</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>경기 하남시 갑</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>인천 계양구 을</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>인천 연수구 갑</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>충남 아산시 을</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>전북 군산·김제·부안 갑</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>전북 군산·김제·부안 을</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>광주 광산구 을</td><td>열세</td><td></td></tr>
+          <tr class="o-열세"><td>제주 서귀포시</td><td>열세</td><td></td></tr>
+        </tbody>
+      </table></div>
+      ${NOTE}`;
+  }
 }
 
 </script>
