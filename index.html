@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>6.3 여론조사 판세 보드</title>
+<title>6.3 국민의힘 여론조사 판세 보드</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -17,7 +17,15 @@ body{font-family:'Noto Sans KR',sans-serif;background:#f0f4f8;color:#0f172a;min-
 .nav::-webkit-scrollbar{display:none;}
 .ntab{padding:8px 13px;font-size:11.5px;font-weight:500;color:#64748b;background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;font-family:'Noto Sans KR',sans-serif;}
 .ntab:hover{color:#cbd5e1;}
-.ntab.on{color:#f8fafc;border-bottom-color:#3b82f6;}
+.ntab.on{color:#f8fafc;border-bottom-color:#dc2626;}
+.ntab.home{color:#f8fafc;font-weight:900;font-size:13px;letter-spacing:-.3px;}
+.ntab.home.on{color:#fbbf24;border-bottom-color:#fbbf24;}
+.ntab.rebo{color:#c4b5fd;}
+.ntab.rebo:hover{color:#e9d5ff;}
+.ntab.rebo.on{color:#f8fafc;border-bottom-color:#a78bfa;}
+.ntab.rebo{color:#a78bfa;}
+.ntab.rebo:hover{color:#c4b5fd;}
+.ntab.rebo.on{color:#f8fafc;border-bottom-color:#a78bfa;}
 .sep{color:#334155;font-size:11px;padding:0 4px;}
 .rlabel{color:#64748b;font-size:10.5px;padding:6px 4px;}
 /* 섹션 */
@@ -33,8 +41,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:#f0f4f8;color:#0f172a;min-
 .pcard.link:hover{opacity:.8;}
 .pc-name{font-size:13px;font-weight:700;}
 .pc-ps{font-size:10px;font-weight:600;margin-top:2px;opacity:.85;}
-.pc-tr{font-size:10px;opacity:.8;margin-top:2px;}
-.pc-nt{font-size:10px;opacity:.75;margin-top:1px;}
+.pc-tr{font-size:10px;opacity:.85;margin-top:2px;}
+.pc-nt{font-size:10px;margin-top:5px;display:inline-block;background:rgba(255,255,255,0.85);padding:1px 7px;border-radius:4px;color:#374151;letter-spacing:-.2px;}
 .sum-legend{font-size:10px;color:#94a3b8;line-height:1.7;padding:10px 12px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;}
 .lb{padding:1px 6px;border-radius:3px;font-size:9.5px;}
 /* 차트 카드 */
@@ -107,56 +115,58 @@ tr:hover td{filter:brightness(.97);}
 <body>
 <div class="hdr">
   <div class="hdr-top">
-    <div class="hdr-title">6.3 여론조사 판세 보드</div>
-    <div class="hdr-date">2026.04.25.~05.21. (18시 기준)</div>
+    <div class="hdr-title">6.3 국민의힘 여론조사 판세 보드</div>
+    <div class="hdr-date">2026.04.25.~05.22. (14시 기준)</div>
+    <div class="hdr-date" style="color:#94a3b8;font-size:10px;margin-top:2px;">광역자치단체장, 재·보궐 선거</div>
   </div>
   <div class="nav">
-    <button class="ntab on" onclick="showSec('summary',this)">전체현황</button>
-    <span class="sep">|</span>
-    <button class="ntab" onclick="showSec('seoul',this)">서울</button>
-    <button class="ntab" onclick="showSec('busan',this)">부산</button>
-    <button class="ntab" onclick="showSec('daegu',this)">대구</button>
-    <button class="ntab" onclick="showSec('gyeongnam',this)">경남</button>
-    <button class="ntab" onclick="showSec('ulsan',this)">울산</button>
-    <button class="ntab" onclick="showSec('chungnam',this)">충남</button>
-    <button class="ntab" onclick="showSec('gangwon',this)">강원</button>
-    <button class="ntab" onclick="showSec('others',this)">기타</button>
-    <span class="sep">|</span>
-    <span class="rlabel">재보궐</span>
-    <button class="ntab" onclick="showSec('bnorth',this)">북구갑</button>
-    <button class="ntab" onclick="showSec('pyeongtaek',this)">평택을</button>
-    <button class="ntab" onclick="showSec('gongju',this)">공주부여청양</button>
-    <button class="ntab" onclick="showSec('others2',this)">기타</button>
+  <button class="ntab home on" onclick="showSec('summary',this)" style="font-size:13px;font-weight:900;padding:8px 18px;letter-spacing:-.3px;background:rgba(251,191,36,0.3);border-radius:6px 6px 0 0;color:#fbbf24;border-bottom-color:#fbbf24;">🏠 전체현황</button>
+  <span class="sep">|</span>
+  <button class="ntab" onclick="showSec('seoul',this)">서울</button>
+  <button class="ntab" onclick="showSec('busan',this)">부산</button>
+  <button class="ntab" onclick="showSec('daegu',this)">대구</button>
+  <button class="ntab" onclick="showSec('gyeongnam',this)">경남</button>
+  <button class="ntab" onclick="showSec('chungnam',this)">충남</button>
+  <button class="ntab" onclick="showSec('ulsan',this)">울산</button>
+  <button class="ntab" onclick="showSec('gyeonggi',this)">경기</button>
+  <button class="ntab" onclick="showSec('gangwon',this)">강원</button>
+  <button class="ntab" onclick="showSec('others',this)">지선 기타</button>
+  <span class="sep">|</span>
+  <button class="ntab rebo" onclick="showSec('bnorth',this)">부산 북구갑</button>
+  <button class="ntab rebo" onclick="showSec('pyeongtaek',this)">경기 평택을</button>
+  <button class="ntab rebo" onclick="showSec('gongju',this)">충남 공주부여청양</button>
+  <button class="ntab rebo" onclick="showSec('others2',this)">재·보궐 기타</button>
   </div>
 </div>
 
 <!-- ===== 전체현황 ===== -->
 <div id="sec-summary" class="sec on">
   <div class="sum-wrap">
-    <div class="sum-sec-title">광역자치단체장 16곳
-      <span style="display:inline-flex;gap:5px;align-items:center;flex-wrap:wrap;">
-        <span style="background:#1d4ed8;color:#fff;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">열세 13</span>
-        <span style="font-size:10px;color:#94a3b8;">(경합-열세4 포함)</span>
-        <span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">경합 2</span>
+    <div class="sum-sec-title" style="flex-direction:column;align-items:flex-start;gap:8px;">
+      <div style="font-size:15px;font-weight:900;color:#0f172a;">광역자치단체장 16곳</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;">
+        <span style="background:#1d4ed8;color:#fff;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">열세 10</span>
+        <span style="background:#93c5fd;color:#1e3a8a;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">경합-열세 3</span>
+        <span style="background:#e2e8f0;color:#374151;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;border:1px solid #cbd5e1;">경합 2</span>
         <span style="background:#b91c1c;color:#fff;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">우세 1</span>
-      </span>
+      </div>
     </div>
     <div class="cards-row" id="cr-gwang"></div>
-    <div class="sum-sec-title">재·보궐선거 14곳
-      <span style="display:inline-flex;gap:5px;align-items:center;flex-wrap:wrap;">
+    <div class="sum-sec-title" style="flex-direction:column;align-items:flex-start;gap:8px;">
+      <div style="font-size:15px;font-weight:900;color:#0f172a;">재·보궐 14곳</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;">
         <span style="background:#1d4ed8;color:#fff;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">열세 11</span>
-        <span style="background:#dbeafe;color:#1e40af;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">경합 1</span>
-        <span style="background:#b91c1c;color:#fff;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">우세 2</span>
-        <span style="font-size:10px;color:#94a3b8;">(경합-우세1 포함)</span>
-      </span>
+        <span style="background:#e2e8f0;color:#374151;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;border:1px solid #cbd5e1;">경합 1</span>
+        <span style="background:#fca5a5;color:#7f1d1d;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">경합-우세 1</span>
+        <span style="background:#b91c1c;color:#fff;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">우세 1</span>
+      </div>
     </div>
     <div class="cards-row" id="cr-rebo"></div>
     <div class="sum-legend">
       ※ 판세 기본 분류: 최근 여론조사 3건 평균 격차 / 5% 미만→경합 / 5~10%→경합-열세·경합-우세 / 10% 이상→열세·우세 (+지역 데이터 일부 반영)<br>
-      ※ 2026.04.25.~05.21. (18시 기준) 기준 · 국민의힘 후보 기준 · 색깔 카드 클릭 시 상세 차트로 이동<br>
-      ※ <span class="lb" style="background:#1d4ed8;color:#fff;">열세</span>
+            ※ <span class="lb" style="background:#1d4ed8;color:#fff;">열세</span>
          <span class="lb" style="background:#93c5fd;color:#1e3a8a;">경합-열세</span>
-         <span class="lb" style="background:#dbeafe;color:#1e40af;">경합</span>
+         <span class="lb" style="background:#f1f5f9;color:#374151;border:1px solid #e2e8f0;">경합</span>
          <span class="lb" style="background:#fca5a5;color:#7f1d1d;">경합-우세</span>
          <span class="lb" style="background:#b91c1c;color:#fff;">우세</span>
     </div>
@@ -169,6 +179,7 @@ tr:hover td{filter:brightness(.97);}
 <div id="sec-daegu" class="sec"><div class="chart-wrap"><div class="card" id="card-daegu"></div></div></div>
 <div id="sec-gyeongnam" class="sec"><div class="chart-wrap"><div class="card" id="card-gyeongnam"></div></div></div>
 <div id="sec-ulsan" class="sec"><div class="chart-wrap"><div class="card" id="card-ulsan"></div></div></div>
+<div id="sec-gyeonggi" class="sec"><div class="chart-wrap"><div class="card" id="card-gyeonggi"></div></div></div>
 <div id="sec-gangwon" class="sec"><div class="chart-wrap"><div class="card" id="card-gangwon"></div></div></div>
 <div id="sec-chungnam" class="sec"><div class="chart-wrap"><div class="card" id="card-chungnam"></div></div></div>
 <div id="sec-others" class="sec"><div class="chart-wrap" style="max-width:760px;margin:0 auto;padding:0 16px;"><div class="other-card" id="card-others"></div></div></div>
@@ -209,7 +220,7 @@ let charts = {};
 const PS_CARD = {
   '열세':     'background:#1d4ed8;color:#fff;',
   '경합-열세':'background:#93c5fd;color:#1e3a8a;',
-  '경합':     'background:#dbeafe;color:#1e40af;',
+  '경합':     'background:#f1f5f9;color:#374151;',
   '경합-우세':'background:#fca5a5;color:#7f1d1d;',
   '우세':     'background:#b91c1c;color:#fff;',
 };
@@ -219,29 +230,47 @@ function makeCard(name,panse,trend,note,sid){
   d.className='pcard'+(sid?' link':'');
   d.style.cssText=(PS_CARD[panse]||'background:#e2e8f0;')+'border-radius:8px;padding:10px 12px;flex:1;min-width:90px;';
   if(sid) d.onclick=()=>showSec(sid, document.querySelector(`.ntab[onclick="showSec('${sid}',this)"]`));
-  d.innerHTML=`<div class="pc-name">${name}</div><div class="pc-ps">${panse}</div>${trend!=='-'?`<div class="pc-tr">${trend}</div>`:''
-  }${note!=='—'?`<div class="pc-nt">${note}</div>`:''}`;
+
+  // 기호 추출
+  const isUp = trend.includes('▲');
+  const isDn = trend.includes('▼');
+  const symColor = isUp?'#e53e3e':isDn?'#3182ce':'#94a3b8';
+  const sym = isUp?'▲':isDn?'▼':'━';
+
+  // 후보명 + 기호: 클릭 가능한 카드만
+  let comboHtml = '';
+  if(sid && (note!=='—' || sym)){
+    const symSpan = sym ? `<span style="color:${symColor};font-weight:900;margin-right:3px;">${sym}</span>` : '';
+    const nameText = note!=='—' ? note.replace(/[▲▼↑↓\-]\s*$/,'').trim() : '';
+    comboHtml = `<div style="margin-top:6px;display:inline-block;background:#fff;color:#2d3748;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:4px;">${symSpan}${nameText}</div>`;
+  }
+
+  const iconHtml = sid ? '<div style="text-align:right;font-size:11px;opacity:.45;margin-top:2px;">🔍</div>' : '';
+  d.innerHTML = `<div class="pc-name">${name}</div><div class="pc-ps">${panse}</div>${comboHtml}${iconHtml}`;
   return d;
 }
 
 [
-  ['서울','경합-열세','유지','오세훈-','seoul'],
-  ['부산','경합-열세','유지','박형준-','busan'],
-  ['대구','경합','유지','추경호-','daegu'],
-  ['경남','경합','상승','박완수-','gyeongnam'],
-  ['울산','경합-열세','상승','김두겸-','ulsan'],
-  ['충남','경합-열세','상승','김태흠-','chungnam'],
+  ['서울','경합-열세','▲ 상승','오세훈 ▲','seoul'],
+  ['부산','열세','유지','박형준 -','busan'],
+  ['대구','경합','유지','추경호 -','daegu'],
+  ['경남','경합','유지','박완수 -','gyeongnam'],
+  ['충남','경합-열세','▲ 상승','김태흠 ▲','chungnam'],
+  ['울산','경합-열세','유지','김두겸 -','ulsan'],
+  ['경기','열세','유지','양향자 -','gyeonggi'],
+  ['강원','열세','유지','김진태 -','gangwon'],
+  ['경북','우세','-','—',null],
+  ['인천','열세','-','—',null],
   ['충북','열세','-','—',null],
-  ['강원','열세','유지','김진태-','gangwon'],['경북','우세','-','—',null],['경기','열세','-','—',null],
-  ['인천','열세','-','—',null],['대전','열세','-','—',null],['세종','열세','-','—',null],
+  ['대전','열세','-','—',null],['세종','열세','-','—',null],
   ['광주·전남','열세','-','—',null],['전북','열세','-','—',null],['제주','열세','-','—',null],
 ].forEach(r=>document.getElementById('cr-gwang').appendChild(makeCard(...r)));
 
 [
-  ['부산 북구갑','열세','유지','박민식-','bnorth'],
-  ['평택을','열세','유지','유의동-','pyeongtaek'],
-  ['달성군','경합-우세','-','이진숙-',null],['울산 남구갑','우세','-','—',null],
-  ['공주부여청양','경합','-','—','gongju'],['경기 안산갑','열세','-','—',null],
+  ['부산 북구갑','열세','유지','박민식 -','bnorth'],
+  ['경기 평택을','열세','유지','유의동 -','pyeongtaek'],
+  ['충남 공주부여청양','경합','-','윤용근 -','gongju'],
+  ['대구 달성','경합-우세','-','이진숙 -',null],['울산 남구갑','우세','-','—',null],['경기 안산갑','열세','-','—',null],
   ['경기 하남갑','열세','-','—',null],['인천 계양을','열세','-','—',null],
   ['인천 연수갑','열세','-','—',null],['충남 아산을','열세','-','—',null],
   ['전북 군산갑','열세','-','—',null],['전북 군산을','열세','-','—',null],
@@ -465,7 +494,7 @@ function initSection(id){
     const hdAvg=(hdR3.reduce((a,b)=>a+b,0)/hdR3.length).toFixed(1);
     const hdMin=Math.min(...hdGaps).toFixed(1);
     const pn=document.querySelector('#card-bnorth .pnote');
-    if(pn) pn.innerHTML+=`<br><span style="font-size:10px;">하정우-한동훈 기준: 최근 3개 평균 격차 ${hdAvg}%p · 최소 격차 ${hdMin}%p</span>`;
+    if(pn) pn.innerHTML+=`<br><span style="font-size:10.5px;color:inherit;">하정우-한동훈 기준: 최근 3개 평균 격차 ${hdAvg}%p · 최소 격차 ${hdMin}%p</span>`;
   }
   const colDefs = cfg.scenarios ? cfg.scenarios[0].colDefs||cfg.colDefs : cfg.colDefs;
   renderTable(id, rows, colDefs, gapFn, cfg);
@@ -475,9 +504,9 @@ function initSection(id){
 // 서울
 // ============================================================
 defRegion('seoul',{
-  name:'서울', panse:'경합-열세', trend:'— 유지', trendColor:'#64748b',
-  candidates:[{name:'정원오',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'오세훈',party:'국민',color:'#dc2626',arrow:'-'}],
-  note:'역전 조사 없음. 최근 전화면접 평균 격차 6~7%p. 조선-메트 5/17에서 최소 3.0%p까지 좁혀짐.',
+  name:'서울', panse:'경합-열세', trend:'▲ 상승 (오세훈)', trendColor:'#dc2626',
+  candidates:[{name:'정원오',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'오세훈',party:'국민',color:'#dc2626',arrow:'↑'}],
+  note:'역전 조사 없음. 뉴시스-에이스(5.19~20) ARS에서 0.1%p까지 좁혀짐(최소). 오세훈 상승세.<br><b>전화면접 vs ARS:</b> 전화면접 평균 격차 약 9%p, ARS 평균 약 6%p. 최근 ARS(스트-조원·뉴시스)에서 격차 급격히 축소',
   exclNote:'여론조사꽃·공정', hasRev:false,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (민주-국민)',
@@ -504,6 +533,8 @@ defRegion('seoul',{
     {period:'5.17~19',agency:'중앙-케이스',   method:'전화',vals:[45,34],    rev:false},
     {period:'5.16~20',agency:'KBS-한국',      method:'전화',vals:[45,34],    rev:false},
     {period:'5.19~20',agency:'스트-조원',     method:'ARS', vals:[43,42.6],  rev:false},
+    {period:'5.19~20',agency:'뉴시스-에이스', method:'ARS', vals:[41.7,41.6],rev:false},
+    {period:'5.20~21',agency:'CBS-KSOI',      method:'ARS', vals:[47.4,41.9],rev:false},
   ]
 });
 
@@ -511,9 +542,9 @@ defRegion('seoul',{
 // 부산
 // ============================================================
 defRegion('busan',{
-  name:'부산', panse:'경합-열세', trend:'— 유지 (박형준)', trendColor:'#64748b',
+  name:'부산', panse:'열세', trend:'— 유지 (박형준)', trendColor:'#64748b',
   candidates:[{name:'전재수',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'박형준',party:'국민',color:'#dc2626',arrow:'-'}],
-  note:'역전 조사 없음. 최근 3개 평균 격차 9.8%p. 채널A-리서치(5.17~19)에서 14.5%p로 다시 벌어짐.',
+  note:'역전 조사 없음. 최근 3개(excl 제외) 평균 격차 10.8%p — 열세. 채널A(14.5%p)·KBS(11%p)·중앙(7%p).<br><b>전화면접 vs ARS:</b> ARS(부산MBC-한길·국제-리얼) 평균 격차 약 10%p로 전화와 유사.',
   exclNote:'여론조사꽃·공정', hasRev:false,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (민주-국민)',
@@ -548,7 +579,7 @@ defRegion('busan',{
 defRegion('daegu',{
   name:'대구', panse:'경합', trend:'— 유지', trendColor:'#64748b',
   candidates:[{name:'김부겸',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'추경호',party:'국민',color:'#dc2626',arrow:'-'}],
-  note:'역전 조사 3회(매일-한길 ARS / JTBC-메타 전화 / 여론조사꽃 ARS*). 최근 전화면접 격차 2~6%p.',
+  note:'역전 조사 3회(매일-한길·JTBC-메타·여론조사꽃*). KBS(5.16~20) 전화에서 1%p까지 좁혀짐.<br><b>전화면접 vs ARS:</b> 전화면접 최근 평균 2~4%p, ARS 평균 4~8%p. 전화면접에서 격차가 더 좁게 나타나는 경향.',
   exclNote:'여론조사꽃', hasRev:true,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (민주-국민)',
@@ -574,6 +605,7 @@ defRegion('daegu',{
     {period:'5.17~19',agency:'채널A-리서치',    method:'전화',vals:[42.2,37.7],rev:false},
     {period:'5.17~19',agency:'중앙-케이스',      method:'전화',vals:[41,38],    rev:false},
     {period:'5.16~20',agency:'KBS-한국',          method:'전화',vals:[40,39],    rev:false},
+    {period:'5.19~20',agency:'여론조사꽃',          method:'ARS', vals:[44.5,46.1],rev:true},
   ]
 });
 
@@ -581,9 +613,9 @@ defRegion('daegu',{
 // 경남
 // ============================================================
 defRegion('gyeongnam',{
-  name:'경남', panse:'경합', trend:'▲ 상승 (박완수)', trendColor:'#dc2626',
-  candidates:[{name:'김경수',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'박완수',party:'국민',color:'#dc2626',arrow:'↑'}],
-  note:'역전 조사 2회(경남-모노 ARS / 경남언론 전화). 최근 ARS 1~2%p까지 좁혀짐. 조사별 편차 큼.',
+  name:'경남', panse:'경합', trend:'— 유지 (박완수)', trendColor:'#64748b',
+  candidates:[{name:'김경수',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'박완수',party:'국민',color:'#dc2626',arrow:'-'}],
+  note:'역전 조사 2회(경남-모노 ARS / 경남언론 전화). KBS(5.16~19) 전화 5%p, CBS ARS 1.3%p.<br><b>전화면접 vs ARS:</b> 전화면접 평균 약 6%p, ARS 평균 약 3%p. ARS에서 격차가 더 좁게 나타남. 조사별 편차가 전체 지역 중 가장 큼.',
   exclNote:'여론조사꽃', hasRev:true,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (민주-국민)',
@@ -612,11 +644,11 @@ defRegion('gyeongnam',{
 // 울산 (시나리오)
 // ============================================================
 defRegion('ulsan',{
-  name:'울산', panse:'경합-열세', trend:'▲ 상승 (김두겸)', trendColor:'#dc2626',
+  name:'울산', panse:'경합-열세', trend:'— 유지', trendColor:'#64748b',
   trend2:'※ 5.23~24 단일화 여론조사 예정',
   candidates:[
-    {name:'김상욱',party:'민주',color:'#1d4ed8',arrow:'↓'},
-    {name:'김두겸',party:'국민',color:'#dc2626',arrow:'↑'},
+    {name:'김상욱',party:'민주',color:'#1d4ed8',arrow:'-'},
+    {name:'김두겸',party:'국민',color:'#dc2626',arrow:'-'},
     {name:'김종훈',party:'기타',color:'#6b7280',arrow:'-',dash:true}
   ],
   note:'역전 조사 1회(KBS울산-공정 ARS). 진보 단일화(김상욱+김종훈) 예정. 단일화 결과가 최대 변수.',
@@ -655,13 +687,38 @@ defRegion('ulsan',{
   ]
 });
 
+
+// ============================================================
+// 경기
+// ============================================================
+defRegion('gyeonggi',{
+  name:'경기', panse:'열세', trend:'— 유지',
+  candidates:[
+    {name:'추미애',party:'민주',color:'#1d4ed8',arrow:'-'},
+    {name:'양향자',party:'국민',color:'#dc2626',arrow:'-'},
+  ],
+  note:'조사 2건(스트-조원 ARS). 격차 19.3%p→14.1%p로 좁혀지는 추세. 열세.',
+  exclNote:null, hasRev:false,
+  gapFn:r=>r.vals[0]-r.vals[1],
+  gapLabel:'격차 (민주-국민)',
+  colDefs:[
+    {label:'조사 기간'},{label:'조사 기관'},{label:'방법'},
+    {label:'추미애',color:'#1d4ed8'},{label:'양향자',color:'#dc2626'},
+    {label:'격차 (민주-국민)'}
+  ],
+  yMin:20, yMax:65, y2Min:0, y2Max:30,
+  rows:[
+    {period:'5.4~5',  agency:'스트-조원', method:'ARS', vals:[50.8,31.5], rev:false},
+    {period:'5.14~15',agency:'스트-조원', method:'ARS', vals:[47.9,33.8], rev:false},
+  ]
+});
 // ============================================================
 // 강원
 // ============================================================
 defRegion('gangwon',{
   name:'강원', panse:'열세', trend:'— 유지', trendColor:'#64748b',
   candidates:[{name:'우상호',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'김진태',party:'국민',color:'#dc2626',arrow:'-'}],
-  note:'조사 2건(전화). 김진태 33~34% 무변동. 우상호 하락에도 격차가 좁혀지지 않음.',
+  note:'조사 2건(전화). 김진태 33~34% 무변동. 4월 여론조사 대비 우상호 하락에도 격차가 좁혀지지 않음.',
   hasRev:false,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (민주-국민)',
@@ -699,6 +756,7 @@ defRegion('chungnam',{
     {period:'5.16~17',agency:'대전MBC-코리아',   method:'전화',vals:[45,37],  rev:false},
     {period:'5.18~19',agency:'뉴스핌-리얼',        method:'ARS', vals:[43.5,43.9],rev:true},
     {period:'5.16~20',agency:'KBS-한국',            method:'전화',vals:[41,37],    rev:false},
+    {period:'5.18~19',agency:'여론조사꽃',            method:'전화',vals:[47.5,29.2],rev:false},
   ]
 });
 
@@ -713,7 +771,7 @@ defRegion('bnorth',{
     {name:'박민식',party:'국민',color:'#dc2626',arrow:'-'},
     {name:'한동훈',party:'무소속',color:'#6b7280',arrow:'↑'}
   ],
-  note:'하정우(민주) 1위 유지. 박민식(국민) 열세/유지. 한동훈(무소속) 경합-열세/상승. 한동훈 역전 1회(채널A-리서치 5.17~19, 한동훈 34.6% > 하정우 32.9%).',
+  note:'<b>📌 박민식(국민) 기준:</b> 하정우에 격차 10~15%p 열세. 유지권. 전화·ARS 모두 일관.<br><b>📌 한동훈(무소속) 기준:</b> 30~34% 수준, 경합-열세. 채널A(5.17~19) ARS에서 34.6%로 하정우 역전 1회 — 추이 주목. 전화 평균 30%, ARS 평균 31%로 방법론 차이 미미.',
   exclNote:'여론조사꽃', hasRev:false,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (하정우-박민식)',
@@ -745,13 +803,13 @@ defRegion('bnorth',{
 // 평택을
 // ============================================================
 defRegion('pyeongtaek',{
-  name:'평택을', panse:'열세', trend:'— 유지 (유의동)',
+  name:'경기 평택을', panse:'열세', trend:'— 유지 (유의동)',
   candidates:[
     {name:'김용남',party:'민주',color:'#1d4ed8',arrow:'-'},
     {name:'유의동',party:'국민',color:'#dc2626',arrow:'-'},
     {name:'조국',party:'조혁',color:'#1e3a8a',arrow:'↑'}
   ],
-  note:'김용남(민주) 1위 유지. 조국(조혁) 상승으로 2강 재편 중. 유의동(국민) 3위 고착.',
+  note:'김용남(민주) 1위 유지. 조국(조혁) 상승으로 2강 재편 중. 유의동(국민) 3위 고착.<br><b>전화면접 vs ARS:</b> 전화면접 평균 격차(1등-유의동) 약 10%p, ARS 약 8%p로 비슷. 다만 ARS(뉴시스)에서 조국이 29.3%로 치솟아 조국 상승세가 ARS에서 더 두드러지는 경향.',
   exclNote:'여론조사꽃', hasRev:true, tableRevColor:false, revLabel:'조국 역전 조사',
   gapFn:r=>Math.max(r.vals[0],r.vals[2])-r.vals[1],
   gapLabel:'격차 (1등-유의동)',
@@ -781,12 +839,12 @@ defRegion('pyeongtaek',{
 // 공주·부여·청양
 // ============================================================
 defRegion('gongju',{
-  name:'공주·부여·청양', panse:'경합', trend:'— 유지',
+  name:'충남 공주·부여·청양', panse:'경합', trend:'— 유지',
   candidates:[
     {name:'김영빈',party:'민주',color:'#1d4ed8',arrow:'-'},
     {name:'윤용근',party:'국민',color:'#dc2626',arrow:'-'},
   ],
-  note:'조사 2건. 전화 김영빈 우세(3%p) / ARS 윤용근 우세(3.6%p). 경합.',
+  note:'조사 2건. 전화 김영빈 35%·윤용근 32% / ARS 김영빈 38.8%·윤용근 42.4%. 경합.',
   hasRev:true,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (김영빈-윤용근)',
@@ -808,25 +866,24 @@ defRegion('gongju',{
 function initOther(id){
   const NOTE = `<div style="margin-top:12px;font-size:10px;color:#94a3b8;line-height:1.6;padding:8px 10px;border-left:2px solid #e2e8f0;">
     ※ 판세 기본 분류: 최근 여론조사 3건 평균 격차 / 5% 미만→경합 / 5~10%→경합-열세·경합-우세 / 10% 이상→열세·우세 (+지역 데이터 일부 반영)<br>
-    ※ 짙은 파랑=열세 · 연파랑=경합-열세 · 하늘=경합 · 연빨강=경합-우세 · 짙은 빨강=우세
+    ※ 짙은 파랑=열세 · 연파랑=경합-열세 · 회색=경합 · 연빨강=경합-우세 · 짙은 빨강=우세
   </div>`;
 
   if(id==='others'){
     const card = document.getElementById('card-others');
     card.innerHTML = `
-      <div style="font-size:22px;font-weight:900;letter-spacing:-1px;margin-bottom:4px;">기타 지역 — 광역자치단체장</div>
+      <div style="font-size:22px;font-weight:900;letter-spacing:-1px;margin-bottom:4px;">지선 기타</div>
       <div class="other-sub">여론조사 미비 지역 판세 요약 · 지역 데이터 등 반영</div>
       <div style="overflow-x:auto;margin-top:12px;"><table>
         <thead><tr><th>지역</th><th>판세</th><th>비고</th></tr></thead>
         <tbody>
           <tr class="o-우세"><td>경북</td><td>우세</td><td></td></tr>
-          <tr class="o-열세"><td>충북</td><td>열세</td><td>4.28~29 신용한 49.5% 김영환 38.7% (리얼·ARS)</td></tr>
-          <tr class="o-열세"><td>경기</td><td>열세</td><td></td></tr>
           <tr class="o-열세"><td>인천</td><td>열세</td><td></td></tr>
-          <tr class="o-열세"><td>대전</td><td>열세</td><td>5.18~19 허태정 44.2% 이장우 41.6% (펜앤-공정·ARS ※성향유의) / 5.16~20 허태정 46% 이장우 32% (KBS·전화)</td></tr>
+          <tr class="o-열세"><td>충북</td><td>열세</td><td>4.28~29 신용한 49.5% 김영환 38.7% (리얼·ARS) / 5.19~20 신용한 47.5% 김영환 28.3% (여론조사꽃·전화 ※성향유의)</td></tr>
+          <tr class="o-열세"><td>대전</td><td>열세</td><td>5.18~19 허태정 44.2% 이장우 41.6% (펜앤-공정·ARS ※성향유의) / 5.16~20 허태정 46% 이장우 32% (KBS·전화) / 5.19~20 허태정 51.4% 이장우 37% (뉴스핌-리얼·ARS)</td></tr>
           <tr class="o-열세"><td>세종</td><td>열세</td><td>5.16~20 조상호 51% 최민호 26% (KBS·전화)</td></tr>
           <tr class="o-열세"><td>광주·전남</td><td>열세</td><td></td></tr>
-          <tr class="o-열세"><td>전북</td><td>열세</td><td>5.18~20 이원택(민주) 39% 김관영(무소속) 37% (KBS-엠브·전화)</td></tr>
+          <tr class="o-열세"><td>전북</td><td>열세</td><td>5.18~20 이원택 39% 김관영 37% (KBS-엠브·전화)</td></tr>
           <tr class="o-열세"><td>제주</td><td>열세</td><td></td></tr>
         </tbody>
       </table></div>
@@ -836,14 +893,13 @@ function initOther(id){
   if(id==='others2'){
     const card = document.getElementById('card-others2');
     card.innerHTML = `
-      <div style="font-size:22px;font-weight:900;letter-spacing:-1px;margin-bottom:4px;">기타 지역 — 재·보궐선거</div>
+      <div style="font-size:22px;font-weight:900;letter-spacing:-1px;margin-bottom:4px;">재·보궐 기타</div>
       <div class="other-sub">여론조사 미비 지역 판세 요약 · 지역 데이터 등 반영</div>
       <div style="overflow-x:auto;margin-top:12px;"><table>
         <thead><tr><th>지역</th><th>판세</th><th>비고</th></tr></thead>
         <tbody>
-          <tr class="o-경합-우세"><td>대구 달성군</td><td>경합-우세</td><td>5.17~18 이진숙 48.5% 박형룡 41.7% (대구MBC-에이스·ARS)</td></tr>
-          <tr class="o-우세"><td>울산 남구갑</td><td>우세</td><td>5.4~5 김태규 46.7%>전태진 31% (KBS·ARS) / 5.18~19 김태규 42.3%>전태진 36.5% (UBC-리얼·ARS)</td></tr>
-          <tr class="o-경합-red"><td>충남 공주·부여·청양</td><td>경합</td><td>5.17~18 김영빈 35% 윤용근 32% (대전MBC·전화) / 5.18~19 윤용근 42.4%>김영빈 38.8% (뉴시스-에이스·ARS)</td></tr>
+          <tr class="o-경합-우세"><td>대구 달성</td><td>경합-우세</td><td>5.17~18 박형룡 41.7% 이진숙 48.5% (대구MBC-에이스·ARS)</td></tr>
+          <tr class="o-우세"><td>울산 남구갑</td><td>우세</td><td>5.4~5 전태진 31% 김태규 46.7% (KBS·ARS) / 5.18~19 전태진 36.5% 김태규 42.3% (UBC-리얼·ARS)</td></tr>
           <tr class="o-열세"><td>경기 안산시 갑</td><td>열세</td><td></td></tr>
           <tr class="o-열세"><td>경기 하남시 갑</td><td>열세</td><td></td></tr>
           <tr class="o-열세"><td>인천 계양구 을</td><td>열세</td><td></td></tr>
@@ -852,7 +908,7 @@ function initOther(id){
           <tr class="o-열세"><td>전북 군산·김제·부안 갑</td><td>열세</td><td></td></tr>
           <tr class="o-열세"><td>전북 군산·김제·부안 을</td><td>열세</td><td></td></tr>
           <tr class="o-열세"><td>광주 광산구 을</td><td>열세</td><td></td></tr>
-          <tr class="o-열세"><td>제주 서귀포시</td><td>열세</td><td>5.16~17 고기철 27%<김성범 49% (제주MBC·전화) / 5.18~19 고기철 39.3%<김성범 50.0% (JIBS-리얼·ARS) — 민주당(김성범) 우세</td></tr>
+          <tr class="o-열세"><td>제주 서귀포시</td><td>열세</td><td>5.16~17 김성범 49% 고기철 27% (제주MBC·전화) / 5.18~19 김성범 50.0% 고기철 39.3% (JIBS-리얼·ARS)</td></tr>
         </tbody>
       </table></div>
       ${NOTE}`;
