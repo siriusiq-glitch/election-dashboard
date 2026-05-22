@@ -352,15 +352,9 @@ function buildRegionCard(prefix, cfg){
     </div>
     <div class="tbl-wrap" id="tbl-${prefix}">
       <div class="tbl-legend">
-        <span style="font-size:10px;color:#1d4ed8;font-weight:600;margin-right:2px;">민주↑</span>
-        <div class="tl"><div class="tl-box" style="background:#dbeafe"></div>5%p↓</div>
-        <div class="tl"><div class="tl-box" style="background:#93c5fd"></div>5~10%p</div>
-        <div class="tl"><div class="tl-box" style="background:#1d4ed8"></div>10%p↑</div>
-        <span style="font-size:10px;color:#94a3b8;margin:0 6px;">|</span>
-        <span style="font-size:10px;color:#b91c1c;font-weight:600;margin-right:2px;">국민↑</span>
-        <div class="tl"><div class="tl-box" style="background:#fee2e2;border-color:#fca5a5"></div>5%p↓</div>
-        <div class="tl"><div class="tl-box" style="background:#fca5a5"></div>5~10%p</div>
-        <div class="tl"><div class="tl-box" style="background:#b91c1c"></div>10%p↑</div>
+        <div class="tl"><div class="tl-box" style="background:#dbeafe"></div><div class="tl-box" style="background:#fee2e2;border-color:#fca5a5;margin-left:2px;"></div>격차 5%p 미만</div>
+        <div class="tl"><div class="tl-box" style="background:#93c5fd"></div><div class="tl-box" style="background:#fca5a5;margin-left:2px;"></div>격차 5~10%p</div>
+        <div class="tl"><div class="tl-box" style="background:#1d4ed8"></div><div class="tl-box" style="background:#b91c1c;margin-left:2px;"></div>격차 10%p 이상</div>
       </div>
       <div id="tbl-inner-${prefix}"></div>
       ${cfg.exclNote?`<div class="excl-note">※ ${cfg.exclNote}, 수치 해석 유의</div>`:''}
