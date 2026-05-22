@@ -192,7 +192,7 @@ const PS_STYLE = {
   '우세':     {bg:'#eff6ff',bd:'#bfdbfe',tx:'#1e40af'},
 };
 const PC = {민주:'#1d4ed8', 국민:'#dc2626', 기타:'#6b7280', 조혁:'#7c3aed', 남색:'#1e3a8a'};
-const EXCL_AGENCIES = ['여론조사꽃','펜앤-공정','KBS울산-공정'];
+const EXCL_AGENCIES = ['여론조사꽃','펜앤-공정','KBS울산-공정','리서치웰'];
 
 function isExcl(agency){ return EXCL_AGENCIES.some(a=>agency.includes(a)); }
 
@@ -298,7 +298,7 @@ function renderChart(prefix, rows, opts){
       interaction:{mode:'index',intersect:false},
       plugins:{legend:{display:false},
         tooltip:{callbacks:{
-          title:items=>{const r=rows[items[0].dataIndex];return `${r.period} / ${r.agency} (${r.method})${isExcl(r.agency)?' ※성향 유의':''}${r.rev?' 🔄역전':''}`;},
+          title:items=>{const r=rows[items[0].dataIndex];return `${r.period} / ${r.agency} (${r.method})${isExcl(r.agency)?' ※단순참고':''}${r.rev?' 🔄역전':''}`;},
           label:item=>`${item.dataset.label}: ${item.parsed.y}%`
         }}},
       scales:{
@@ -343,7 +343,7 @@ function buildRegionCard(prefix, cfg){
     <div class="chart-note">
       <span>● 전화면접</span><span>▲ ARS</span>
       ${cfg.hasRev?`<span style="color:#f97316;font-weight:600;">● 역전 조사</span>`:''}
-      ${cfg.exclNote?`<span class="warn-badge">◇ 수치 해석 유의 (${cfg.exclNote})</span>`:''}
+      ${cfg.exclNote?`<span class="warn-badge">◇ 단순 참고 (${cfg.exclNote})</span>`:''}
     </div>
     <div class="pnote" style="background:${ps.bg};border:1px solid ${ps.bd};color:${ps.tx};">${cfg.note}</div>
     <div class="toggle-row" onclick="toggleTbl('${prefix}')">
@@ -357,7 +357,7 @@ function buildRegionCard(prefix, cfg){
         <div class="tl"><div class="tl-box" style="background:#1d4ed8"></div><div class="tl-box" style="background:#b91c1c;margin-left:2px;"></div>격차 10%p 이상</div>
       </div>
       <div id="tbl-inner-${prefix}"></div>
-      ${cfg.exclNote?`<div class="excl-note">※ ${cfg.exclNote}, 수치 해석 유의</div>`:''}
+      ${cfg.exclNote?`<div class="excl-note">※ ${cfg.exclNote}, 단순 참고</div>`:''}
     </div>`;
 }
 
@@ -394,7 +394,7 @@ function renderTable(prefix, rows, colDefs, gapFn, cfg){
     const egBg = extraGap===null ? '' : (isExcl(r.agency) ? 'background:#fff!important' : extraGap<0 ? 'background:#e2e8f0!important;color:#64748b' : egAbs<5 ? 'background:#dbeafe!important' : egAbs<10 ? 'background:#93c5fd!important' : 'background:#1d4ed8!important;color:#fff!important');
     const cells = [
       `<td class="lc">${r.period}</td>`,
-      `<td class="lc">${r.agency}${excl?' <span class="tag-w">유의</span>':''}</td>`,
+      `<td class="lc">${r.agency}${excl?' <span class="tag-w">참고</span>':''}</td>`,
       `<td><span class="tag ${isArs?'tag-ars':'tag-tel'}">${r.method}</span></td>`,
       ...colDefs.slice(3,-1).map((col,i)=>`<td class="mono" style="color:${col.color||'#374151'}">${r.vals[i]}%</td>`),
       `<td class="mono" style="color:#64748b">${g}%p</td>`,
@@ -469,30 +469,31 @@ function initSection(id){
 defRegion('seoul',{
   name:'서울', panse:'경합-열세', trend:'▲ 상승 (오세훈)', trendColor:'#dc2626',
   candidates:[{name:'정원오',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'오세훈',party:'국민',color:'#dc2626',arrow:'↑'}],
-  note:'역전 조사 없음. 뉴시스-에이스(5.19~20) ARS에서 0.1%p까지 좁혀짐(최소). 오세훈 상승세.<br><b>전화면접 vs ARS:</b> 전화면접 평균 격차 약 9%p, ARS 평균 약 6%p. 최근 ARS(스트-조원·뉴시스)에서 격차 급격히 축소',
-  exclNote:'여론조사꽃·공정', hasRev:false,
+  note:'역전 조사 1회*(뉴데일리-리서치웰 단순참고, 오세훈 44.8%). 뉴시스-에이스(5.19~20) ARS에서 0.1%p까지 좁혀짐(최소). 오세훈 상승세.<br><b>전화면접 vs ARS:</b> 전화면접 평균 격차 약 9%p, ARS 평균 약 6%p. 최근 ARS(스트-조원·뉴시스)에서 격차 급격히 축소',
+  exclNote:'여론조사꽃·공정·리서치웰', hasRev:true,
   gapFn:r=>r.vals[0]-r.vals[1], gapLabel:'격차 (민주-국민)',
   colDefs:[{label:'조사 기간'},{label:'조사 기관'},{label:'방법'},{label:'정원오',color:'#1d4ed8'},{label:'오세훈',color:'#dc2626'},{label:'격차 (민주-국민)'}],
-  yMin:25, yMax:58, y2Min:0, y2Max:25,
+  yMin:25, yMax:58, y2Min:-5, y2Max:25,
   rows:[
-    {period:'4.28~29',agency:'MBC-코리아',  method:'전화',vals:[48,32],  rev:false},
-    {period:'5.1~2',  agency:'폴리-에브리', method:'ARS', vals:[49.5,36.4],rev:false},
-    {period:'5.1~3',  agency:'SBS-입소스',  method:'전화',vals:[41,34],  rev:false},
-    {period:'5.4~5',  agency:'스트-조원',   method:'ARS', vals:[50.2,38],rev:false},
-    {period:'5.9~10', agency:'뉴스1-갤럽',  method:'전화',vals:[46,38],  rev:false},
-    {period:'5.10~11',agency:'펜앤-공정',   method:'ARS', vals:[44.7,42.6],rev:false},
-    {period:'5.11~12',agency:'여론조사꽃',  method:'ARS', vals:[52.2,35.3],rev:false},
-    {period:'5.11~13',agency:'여론조사꽃',  method:'전화',vals:[50.1,30.4],rev:false},
-    {period:'5.12~13',agency:'CBS-KSOI',   method:'ARS', vals:[44.9,39.8],rev:false},
-    {period:'5.11~14',agency:'KBS-한국',    method:'전화',vals:[43,32],  rev:false},
-    {period:'5.16~17',agency:'MBC-코리아',  method:'전화',vals:[43,35],  rev:false},
-    {period:'5.16~17',agency:'조선-메트',   method:'전화',vals:[40,37],  rev:false},
-    {period:'5.17~19',agency:'채널A-리서치', method:'전화',vals:[43.9,35.7],rev:false},
-    {period:'5.17~19',agency:'중앙-케이스',  method:'전화',vals:[45,34],  rev:false},
-    {period:'5.16~20',agency:'KBS-한국',    method:'전화',vals:[45,34],  rev:false},
-    {period:'5.19~20',agency:'스트-조원',   method:'ARS', vals:[43,42.6],rev:false},
-    {period:'5.19~20',agency:'뉴시스-에이스',method:'ARS',vals:[41.7,41.6],rev:false},
-    {period:'5.20~21',agency:'CBS-KSOI',   method:'ARS', vals:[47.4,41.9],rev:false},
+    {period:'4.28~29',agency:'MBC-코리아',       method:'전화',vals:[48,32],    rev:false},
+    {period:'5.1~2',  agency:'폴리-에브리',       method:'ARS', vals:[49.5,36.4],rev:false},
+    {period:'5.1~3',  agency:'SBS-입소스',        method:'전화',vals:[41,34],    rev:false},
+    {period:'5.4~5',  agency:'스트-조원',         method:'ARS', vals:[50.2,38],  rev:false},
+    {period:'5.9~10', agency:'뉴스1-갤럽',        method:'전화',vals:[46,38],    rev:false},
+    {period:'5.10~11',agency:'펜앤-공정',         method:'ARS', vals:[44.7,42.6],rev:false},
+    {period:'5.11~12',agency:'여론조사꽃',        method:'ARS', vals:[52.2,35.3],rev:false},
+    {period:'5.11~13',agency:'여론조사꽃',        method:'전화',vals:[50.1,30.4],rev:false},
+    {period:'5.12~13',agency:'CBS-KSOI',         method:'ARS', vals:[44.9,39.8],rev:false},
+    {period:'5.11~14',agency:'KBS-한국',          method:'전화',vals:[43,32],    rev:false},
+    {period:'5.16~17',agency:'MBC-코리아',        method:'전화',vals:[43,35],    rev:false},
+    {period:'5.16~17',agency:'조선-메트',         method:'전화',vals:[40,37],    rev:false},
+    {period:'5.17~19',agency:'채널A-리서치',      method:'전화',vals:[43.9,35.7],rev:false},
+    {period:'5.17~19',agency:'중앙-케이스',       method:'전화',vals:[45,34],    rev:false},
+    {period:'5.16~20',agency:'KBS-한국',          method:'전화',vals:[45,34],    rev:false},
+    {period:'5.19~20',agency:'스트-조원',         method:'ARS', vals:[43,42.6],  rev:false},
+    {period:'5.19~20',agency:'뉴시스-에이스',     method:'ARS', vals:[41.7,41.6],rev:false},
+    {period:'5.20~21',agency:'CBS-KSOI',         method:'ARS', vals:[47.4,41.9],rev:false},
+    {period:'5.20~21',agency:'뉴데일리-리서치웰', method:'ARS', vals:[42,44.8],  rev:true},
   ]
 });
 
@@ -505,21 +506,21 @@ defRegion('busan',{
   colDefs:[{label:'조사 기간'},{label:'조사 기관'},{label:'방법'},{label:'전재수',color:'#1d4ed8'},{label:'박형준',color:'#dc2626'},{label:'격차 (민주-국민)'}],
   yMin:25, yMax:58, y2Min:0, y2Max:25,
   rows:[
-    {period:'4.28~29',agency:'MBC-코리아',   method:'전화',vals:[48,34],  rev:false},
+    {period:'4.28~29',agency:'MBC-코리아',   method:'전화',vals:[48,34],    rev:false},
     {period:'4.28~29',agency:'여론조사꽃',   method:'전화',vals:[49.8,28.5],rev:false},
     {period:'5.1~2',  agency:'부산MBC-한길', method:'ARS', vals:[46.9,40.7],rev:false},
     {period:'5.9~10', agency:'국제-리얼',    method:'ARS', vals:[52.4,34.7],rev:false},
-    {period:'5.9~10', agency:'뉴스1-갤럽',   method:'전화',vals:[43,41],  rev:false},
+    {period:'5.9~10', agency:'뉴스1-갤럽',   method:'전화',vals:[43,41],    rev:false},
     {period:'5.11~12',agency:'부산MBC-한길', method:'ARS', vals:[47.7,40.2],rev:false},
     {period:'5.12~13',agency:'여론조사꽃',   method:'ARS', vals:[47.9,38.4],rev:false},
-    {period:'5.11~14',agency:'KBS-한국',     method:'전화',vals:[42,33],  rev:false},
+    {period:'5.11~14',agency:'KBS-한국',     method:'전화',vals:[42,33],    rev:false},
     {period:'5.13~14',agency:'펜앤-공정',    method:'ARS', vals:[45.6,41.3],rev:false},
-    {period:'5.16~17',agency:'MBC-코리아',   method:'전화',vals:[44,38],  rev:false},
-    {period:'5.16~17',agency:'조선-메트',    method:'전화',vals:[44,35],  rev:false},
+    {period:'5.16~17',agency:'MBC-코리아',   method:'전화',vals:[44,38],    rev:false},
+    {period:'5.16~17',agency:'조선-메트',    method:'전화',vals:[44,35],    rev:false},
     {period:'5.17~19',agency:'채널A-리서치', method:'전화',vals:[47.3,32.8],rev:false},
-    {period:'5.17~19',agency:'중앙-케이스',  method:'전화',vals:[42,35],  rev:false},
+    {period:'5.17~19',agency:'중앙-케이스',  method:'전화',vals:[42,35],    rev:false},
     {period:'5.18~19',agency:'여론조사꽃',   method:'ARS', vals:[49.7,39.8],rev:false},
-    {period:'5.16~20',agency:'KBS-한국',     method:'전화',vals:[45,34],  rev:false},
+    {period:'5.16~20',agency:'KBS-한국',     method:'전화',vals:[45,34],    rev:false},
   ]
 });
 
@@ -534,19 +535,19 @@ defRegion('daegu',{
   rows:[
     {period:'4.27~28',agency:'TBC-리얼',      method:'ARS', vals:[47.5,39.8],rev:false},
     {period:'4.27~28',agency:'매일-한길',      method:'ARS', vals:[42.6,46.1],rev:true},
-    {period:'4.27~29',agency:'KBS대구-한국',   method:'전화',vals:[38,31],  rev:false},
-    {period:'4.28~29',agency:'MBC-코리아',     method:'전화',vals:[44,35],  rev:false},
-    {period:'5.1~3',  agency:'SBS-입소스',     method:'전화',vals:[41,36],  rev:false},
+    {period:'4.27~29',agency:'KBS대구-한국',   method:'전화',vals:[38,31],    rev:false},
+    {period:'4.28~29',agency:'MBC-코리아',     method:'전화',vals:[44,35],    rev:false},
+    {period:'5.1~3',  agency:'SBS-입소스',     method:'전화',vals:[41,36],    rev:false},
     {period:'5.2~3',  agency:'대구MBC-에이스', method:'ARS', vals:[45.9,42.4],rev:false},
-    {period:'5.4~6',  agency:'KBS대구-한국',   method:'전화',vals:[41,37],  rev:false},
+    {period:'5.4~6',  agency:'KBS대구-한국',   method:'전화',vals:[41,37],    rev:false},
     {period:'5.5~6',  agency:'여론조사꽃',     method:'ARS', vals:[43.3,43.7],rev:true},
-    {period:'5.5~6',  agency:'JTBC-메타',      method:'전화',vals:[35,36],  rev:true},
-    {period:'5.9~10', agency:'뉴스1-갤럽',     method:'전화',vals:[44,41],  rev:false},
-    {period:'5.16~17',agency:'MBC-코리아',     method:'전화',vals:[43,37],  rev:false},
-    {period:'5.16~17',agency:'조선-메트',      method:'전화',vals:[40,38],  rev:false},
+    {period:'5.5~6',  agency:'JTBC-메타',      method:'전화',vals:[35,36],    rev:true},
+    {period:'5.9~10', agency:'뉴스1-갤럽',     method:'전화',vals:[44,41],    rev:false},
+    {period:'5.16~17',agency:'MBC-코리아',     method:'전화',vals:[43,37],    rev:false},
+    {period:'5.16~17',agency:'조선-메트',      method:'전화',vals:[40,38],    rev:false},
     {period:'5.17~19',agency:'채널A-리서치',   method:'전화',vals:[42.2,37.7],rev:false},
-    {period:'5.17~19',agency:'중앙-케이스',    method:'전화',vals:[41,38],  rev:false},
-    {period:'5.16~20',agency:'KBS-한국',       method:'전화',vals:[40,39],  rev:false},
+    {period:'5.17~19',agency:'중앙-케이스',    method:'전화',vals:[41,38],    rev:false},
+    {period:'5.16~20',agency:'KBS-한국',       method:'전화',vals:[40,39],    rev:false},
     {period:'5.19~20',agency:'여론조사꽃',     method:'ARS', vals:[44.5,46.1],rev:true},
   ]
 });
@@ -560,17 +561,17 @@ defRegion('gyeongnam',{
   colDefs:[{label:'조사 기간'},{label:'조사 기관'},{label:'방법'},{label:'김경수',color:'#1d4ed8'},{label:'박완수',color:'#dc2626'},{label:'격차 (민주-국민)'}],
   yMin:25, yMax:55, y2Min:-10, y2Max:20,
   rows:[
-    {period:'4.27~28',agency:'여론조사꽃',      method:'전화',vals:[44.7,33.8],rev:false},
-    {period:'5.1~2',  agency:'경남-모노',        method:'ARS', vals:[41.9,44.1],rev:true},
-    {period:'5.5~6',  agency:'JTBC-메타',        method:'전화',vals:[36,32],  rev:false},
-    {period:'5.8~10', agency:'경남언론-경남통계', method:'전화',vals:[40.3,42],rev:true},
-    {period:'5.9~10', agency:'뉴스1-갤럽',       method:'전화',vals:[45,38],  rev:false},
-    {period:'5.11~12',agency:'MBC경남-KSOI',     method:'ARS', vals:[44.3,43.5],rev:false},
-    {period:'5.12~13',agency:'여론조사꽃',       method:'ARS', vals:[45.2,43.6],rev:false},
-    {period:'5.16~17',agency:'조선-메트',        method:'전화',vals:[44,34],  rev:false},
-    {period:'5.16~19',agency:'KBS-한국',         method:'전화',vals:[40,35],  rev:false},
-    {period:'5.18~19',agency:'CBS-KSOI',         method:'ARS', vals:[44.8,43.5],rev:false},
-    {period:'5.18~19',agency:'여론조사꽃',       method:'ARS', vals:[43.4,44.2],rev:true},
+    {period:'4.27~28',agency:'여론조사꽃',        method:'전화',vals:[44.7,33.8],rev:false},
+    {period:'5.1~2',  agency:'경남-모노',          method:'ARS', vals:[41.9,44.1],rev:true},
+    {period:'5.5~6',  agency:'JTBC-메타',          method:'전화',vals:[36,32],    rev:false},
+    {period:'5.8~10', agency:'경남언론-경남통계',   method:'전화',vals:[40.3,42],  rev:true},
+    {period:'5.9~10', agency:'뉴스1-갤럽',         method:'전화',vals:[45,38],    rev:false},
+    {period:'5.11~12',agency:'MBC경남-KSOI',       method:'ARS', vals:[44.3,43.5],rev:false},
+    {period:'5.12~13',agency:'여론조사꽃',         method:'ARS', vals:[45.2,43.6],rev:false},
+    {period:'5.16~17',agency:'조선-메트',          method:'전화',vals:[44,34],    rev:false},
+    {period:'5.16~19',agency:'KBS-한국',           method:'전화',vals:[40,35],    rev:false},
+    {period:'5.18~19',agency:'CBS-KSOI',           method:'ARS', vals:[44.8,43.5],rev:false},
+    {period:'5.18~19',agency:'여론조사꽃',         method:'ARS', vals:[43.4,44.2],rev:true},
   ]
 });
 
@@ -644,11 +645,11 @@ defRegion('chungnam',{
   colDefs:[{label:'조사 기간'},{label:'조사 기관'},{label:'방법'},{label:'박수현',color:'#1d4ed8'},{label:'김태흠',color:'#dc2626'},{label:'격차 (민주-국민)'}],
   yMin:15, yMax:58, y2Min:0, y2Max:30,
   rows:[
-    {period:'4.26~28',agency:'KBS대전-한국',    method:'전화',vals:[44,23],  rev:false},
+    {period:'4.26~28',agency:'KBS대전-한국',    method:'전화',vals:[44,23],    rev:false},
     {period:'5.8~9',  agency:'굿모닝충청-리얼', method:'ARS', vals:[50.1,37.3],rev:false},
-    {period:'5.16~17',agency:'대전MBC-코리아',  method:'전화',vals:[45,37],  rev:false},
+    {period:'5.16~17',agency:'대전MBC-코리아',  method:'전화',vals:[45,37],    rev:false},
     {period:'5.18~19',agency:'뉴스핌-리얼',     method:'ARS', vals:[43.5,43.9],rev:true},
-    {period:'5.16~20',agency:'KBS-한국',        method:'전화',vals:[41,37],  rev:false},
+    {period:'5.16~20',agency:'KBS-한국',        method:'전화',vals:[41,37],    rev:false},
     {period:'5.18~19',agency:'여론조사꽃',      method:'전화',vals:[47.5,29.2],rev:false},
   ]
 });
@@ -669,16 +670,16 @@ defRegion('bnorth',{
   extraGapLabel: '격차 (하정우-한동훈)',
   yMin:10, yMax:50, y2Min:0, y2Max:30,
   rows:[
-    {period:'5.4~5',  agency:'JTBC-메타',    method:'전화',vals:[34,22,22],  rev:false},
-    {period:'5.8~10', agency:'KBS부산-한국',  method:'전화',vals:[37,17,30],  rev:false},
+    {period:'5.4~5',  agency:'JTBC-메타',    method:'전화',vals:[34,22,22],    rev:false},
+    {period:'5.8~10', agency:'KBS부산-한국',  method:'전화',vals:[37,17,30],    rev:false},
     {period:'5.9~10', agency:'국제-리얼',     method:'ARS', vals:[43.4,23.1,28.1],rev:false},
     {period:'5.11~12',agency:'부산MBC-한길',  method:'ARS', vals:[35.5,25.5,32.6],rev:false},
-    {period:'5.12~13',agency:'뉴스1-갤럽',    method:'전화',vals:[39,21,29],  rev:false},
+    {period:'5.12~13',agency:'뉴스1-갤럽',    method:'전화',vals:[39,21,29],    rev:false},
     {period:'5.14~15',agency:'여론조사꽃',    method:'ARS', vals:[41.7,21.1,32.2],rev:false},
-    {period:'5.16~17',agency:'조선-메트',     method:'전화',vals:[39,20,33],  rev:false},
-    {period:'5.16~18',agency:'MBC-코리아',    method:'전화',vals:[38,20,33],  rev:false},
+    {period:'5.16~17',agency:'조선-메트',     method:'전화',vals:[39,20,33],    rev:false},
+    {period:'5.16~18',agency:'MBC-코리아',    method:'전화',vals:[38,20,33],    rev:false},
     {period:'5.17~18',agency:'뉴시스-에이스', method:'ARS', vals:[40.4,20.9,32.7],rev:false},
-    {period:'5.17~19',agency:'중앙-케이스',   method:'전화',vals:[35,20,31],  rev:false},
+    {period:'5.17~19',agency:'중앙-케이스',   method:'전화',vals:[35,20,31],    rev:false},
     {period:'5.17~19',agency:'채널A-리서치',  method:'전화',vals:[32.9,20.5,34.6],rev:false},
     {period:'5.18~19',agency:'펜앤-공정',     method:'ARS', vals:[35.7,24.8,33.0],rev:false},
   ]
@@ -697,18 +698,18 @@ defRegion('pyeongtaek',{
   colDefs:[{label:'조사 기간'},{label:'조사 기관'},{label:'방법'},{label:'김용남',color:'#1d4ed8'},{label:'유의동',color:'#dc2626'},{label:'조국',color:'#1e3a8a'},{label:'격차 (1등-유의동)'}],
   yMin:10, yMax:40, y2Min:-10, y2Max:20,
   rows:[
-    {period:'4.26~27',agency:'여론조사꽃',    method:'ARS', vals:[27.5,18.9,21.8],rev:false},
-    {period:'5.1~2',  agency:'인천-한길',     method:'ARS', vals:[30.8,19.8,23],  rev:false},
-    {period:'5.1~2',  agency:'토마토',        method:'ARS', vals:[28.8,22.5,22.2],rev:false},
-    {period:'5.4~5',  agency:'JTBC-메타',     method:'전화',vals:[22,15,24],      rev:true},
-    {period:'5.12~13',agency:'뉴스1-갤럽',    method:'전화',vals:[29,20,24],      rev:false},
-    {period:'5.11~14',agency:'KBS-한국',      method:'전화',vals:[28,18,22],      rev:false},
-    {period:'5.14~15',agency:'여론조사꽃',    method:'ARS', vals:[28.7,21,25],    rev:false},
-    {period:'5.16~17',agency:'경인-갤럽',     method:'전화',vals:[30,21,23],      rev:false},
-    {period:'5.16~17',agency:'뉴시스-에이스', method:'ARS', vals:[25.5,22.4,29.3],rev:true},
-    {period:'5.16~17',agency:'조선-메트',     method:'전화',vals:[25,20,26],      rev:true},
-    {period:'5.16~18',agency:'MBC-코리아',    method:'전화',vals:[31,17,27],      rev:false},
-    {period:'5.17~19',agency:'중앙-케이스',   method:'전화',vals:[29,17,23],      rev:false},
+    {period:'4.26~27',agency:'여론조사꽃',     method:'ARS', vals:[27.5,18.9,21.8],rev:false},
+    {period:'5.1~2',  agency:'인천-한길',      method:'ARS', vals:[30.8,19.8,23],  rev:false},
+    {period:'5.1~2',  agency:'토마토',         method:'ARS', vals:[28.8,22.5,22.2],rev:false},
+    {period:'5.4~5',  agency:'JTBC-메타',      method:'전화',vals:[22,15,24],      rev:true},
+    {period:'5.12~13',agency:'뉴스1-갤럽',     method:'전화',vals:[29,20,24],      rev:false},
+    {period:'5.11~14',agency:'KBS-한국',       method:'전화',vals:[28,18,22],      rev:false},
+    {period:'5.14~15',agency:'여론조사꽃',     method:'ARS', vals:[28.7,21,25],    rev:false},
+    {period:'5.16~17',agency:'경인-갤럽',      method:'전화',vals:[30,21,23],      rev:false},
+    {period:'5.16~17',agency:'뉴시스-에이스',  method:'ARS', vals:[25.5,22.4,29.3],rev:true},
+    {period:'5.16~17',agency:'조선-메트',      method:'전화',vals:[25,20,26],      rev:true},
+    {period:'5.16~18',agency:'MBC-코리아',     method:'전화',vals:[31,17,27],      rev:false},
+    {period:'5.17~19',agency:'중앙-케이스',    method:'전화',vals:[29,17,23],      rev:false},
   ]
 });
 
@@ -721,7 +722,7 @@ defRegion('gongju',{
   colDefs:[{label:'조사 기간'},{label:'조사 기관'},{label:'방법'},{label:'김영빈',color:'#1d4ed8'},{label:'윤용근',color:'#dc2626'},{label:'격차 (김영빈-윤용근)'}],
   yMin:20, yMax:55, y2Min:-10, y2Max:15,
   rows:[
-    {period:'5.17~18',agency:'대전MBC-코리아', method:'전화',vals:[35,32],   rev:false},
+    {period:'5.17~18',agency:'대전MBC-코리아', method:'전화',vals:[35,32],    rev:false},
     {period:'5.18~19',agency:'뉴시스-에이스',  method:'ARS', vals:[38.8,42.4],rev:true},
   ]
 });
