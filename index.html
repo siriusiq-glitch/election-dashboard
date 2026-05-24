@@ -496,16 +496,6 @@ function initSection(id){
   const cands = cfg.scenarios ? cfg.scenarios[0].candidates||cfg.candidates : cfg.candidates;
   renderChart(id, rows, {...cfg, candidates:cands, gapFn});
   renderStats(id, rows, gapFn);
-  // bnorth 전용: 하정우-한동훈 격차 한 줄
-  if(id==='bnorth' && cfg.extraGapFn){
-    const vRows=rows.filter(r=>!isExcl(r.agency));
-    const hdGaps=vRows.map(r=>+(cfg.extraGapFn(r)).toFixed(1));
-    const hdR3=hdGaps.slice(-3);
-    const hdAvg=(hdR3.reduce((a,b)=>a+b,0)/hdR3.length).toFixed(1);
-    const hdMin=Math.min(...hdGaps).toFixed(1);
-    const pn=document.querySelector('#card-bnorth .pnote');
-    if(pn) pn.innerHTML+=`<br><span style="font-size:10.5px;color:inherit;">하정우-한동훈 기준: 최근 3개 평균 격차 ${hdAvg}%p · 최소 격차 ${hdMin}%p</span>`;
-  }
   const colDefs = cfg.scenarios ? cfg.scenarios[0].colDefs||cfg.colDefs : cfg.colDefs;
   renderTable(id, rows, colDefs, gapFn, cfg);
 }
@@ -783,7 +773,7 @@ defRegion('bnorth',{
     {name:'박민식',party:'국민',color:'#dc2626',arrow:'-'},
     {name:'한동훈',party:'무소속',color:'#6b7280',arrow:'↑'}
   ],
-  note:'하정우에 격차 10~15%p 열세. 유지권. 전화·ARS 모두 일관.<br><span style="font-size:10px;opacity:.75;">※ 한동훈(무소속): 30~34% 수준, 경합-열세. 채널A(5.17~19) ARS에서 34.6%로 하정우 역전 1회. 전화 평균 30%, ARS 평균 31%로 방법론 차이 미미.</span>',
+  note:'하정우-박민식, 격차 10~15%p 열세. 유지권. 전화·ARS 모두 일관.<br><br>하정우-한동훈, 최근 3개 평균 격차 3.3%p · 최소 격차 -1.7%p<br><span style="font-size:10px;opacity:.75;">※ 한동훈 30~34% 수준, 경합-열세. 채널A(5.17~19) ARS에서 34.6%로 하정우 역전 1회. 전화·ARS 방법론 차이 미미.</span>',
   exclNote:'여론조사꽃·공정', hasRev:false,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (하정우-박민식)',
