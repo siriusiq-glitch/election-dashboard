@@ -778,14 +778,13 @@ defRegion('chungnam',{
 // ============================================================
 defRegion('bnorth',{
   name:'부산 북구갑', panse:'열세', trend:'— 유지 (박민식)',
-  trend2:'▲ 상승(한동훈)',
   candidates:[
     {name:'하정우',party:'민주',color:'#1d4ed8',arrow:'-'},
     {name:'박민식',party:'국민',color:'#dc2626',arrow:'-'},
     {name:'한동훈',party:'무소속',color:'#6b7280',arrow:'↑'}
   ],
-  note:'<b>📌 박민식(국민) 기준:</b> 하정우에 격차 10~15%p 열세. 유지권. 전화·ARS 모두 일관.<br><b>📌 한동훈(무소속) 기준:</b> 30~34% 수준, 경합-열세. 채널A(5.17~19) ARS에서 34.6%로 하정우 역전 1회 — 추이 주목. 전화 평균 30%, ARS 평균 31%로 방법론 차이 미미.',
-  exclNote:'여론조사꽃', hasRev:false,
+  note:'하정우에 격차 10~15%p 열세. 유지권. 전화·ARS 모두 일관.<br><span style="font-size:10px;opacity:.75;">※ 한동훈(무소속): 30~34% 수준, 경합-열세. 채널A(5.17~19) ARS에서 34.6%로 하정우 역전 1회. 전화 평균 30%, ARS 평균 31%로 방법론 차이 미미.</span>',
+  exclNote:'여론조사꽃·공정', hasRev:false,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (하정우-박민식)',
   colDefs:[
