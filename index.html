@@ -207,7 +207,7 @@ const PS_STYLE = {
   '우세':     {bg:'#eff6ff',bd:'#bfdbfe',tx:'#1e40af'},
 };
 const PC = {민주:'#1d4ed8', 국민:'#dc2626', 기타:'#6b7280', 조혁:'#7c3aed', 남색:'#1e3a8a'};
-const EXCL_AGENCIES = ['여론조사꽃','펜앤-공정','KBS울산-공정','리서치웰'];
+const EXCL_AGENCIES = ['여론조사꽃','공정','리서치웰'];
 
 function isExcl(agency){ return EXCL_AGENCIES.some(a=>agency.includes(a)); }
 
@@ -729,8 +729,8 @@ defRegion('gyeonggi',{
 defRegion('gangwon',{
   name:'강원', panse:'열세', trend:'— 유지', trendColor:'#64748b',
   candidates:[{name:'우상호',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'김진태',party:'국민',color:'#dc2626',arrow:'-'}],
-  note:'전화 조사 2건(KBS)에서 김진태 33~34% 고착. 파이낸스-공정(5.21~22) ARS에서 49.4%:44.9%로 격차 4.5%p까지 수렴 — 전화 대비 ARS에서 격차 좁아지는 경향.',
-  hasRev:false,
+  note:'전화 조사 2건(KBS)에서 김진태 33~34% 고착. 파이낸스-공정(5.21~22) ARS 49.4%:44.9%는 단순 참고.',
+  exclNote:'파이낸스-공정', hasRev:false,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (민주-국민)',
   colDefs:[
