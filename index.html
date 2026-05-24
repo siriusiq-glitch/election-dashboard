@@ -121,7 +121,7 @@ tr:hover td{filter:brightness(.97);}
 <div class="hdr">
   <div class="hdr-top">
     <div class="hdr-title">6.3 국민의힘 여론조사 판세 보드</div>
-    <div class="hdr-date">2026.04.25.~05.24. (10시 기준)</div>
+    <div class="hdr-date">2026.04.25.~05.24. (15시 기준)</div>
     <div class="hdr-date" style="color:#94a3b8;font-size:10px;margin-top:2px;">광역자치단체장, 재·보궐 선거</div>
   </div>
   <div class="nav">
@@ -207,7 +207,7 @@ const PS_STYLE = {
   '우세':     {bg:'#eff6ff',bd:'#bfdbfe',tx:'#1e40af'},
 };
 const PC = {민주:'#1d4ed8', 국민:'#dc2626', 기타:'#6b7280', 조혁:'#7c3aed', 남색:'#1e3a8a'};
-const EXCL_AGENCIES = ['여론조사꽃','공정','리서치웰'];
+const EXCL_AGENCIES = ['여론조사꽃','공정','리서치웰','비전'];
 
 function isExcl(agency){ return EXCL_AGENCIES.some(a=>agency.includes(a)); }
 
@@ -590,7 +590,7 @@ defRegion('daegu',{
   name:'대구', panse:'경합', trend:'— 유지', trendColor:'#64748b',
   candidates:[{name:'김부겸',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'추경호',party:'국민',color:'#dc2626',arrow:'-'}],
   note:'역전 조사 3회(매일-한길·JTBC-메타·여론조사꽃*). KBS(5.16~20) 전화에서 1%p까지 좁혀짐.<br><b>전화면접 vs ARS:</b> 전화면접 최근 평균 2~4%p, ARS 평균 4~8%p. 전화면접에서 격차가 더 좁게 나타나는 경향.',
-  exclNote:'여론조사꽃', hasRev:true,
+  exclNote:'여론조사꽃·비전', hasRev:true,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (민주-국민)',
   colDefs:[
@@ -616,6 +616,7 @@ defRegion('daegu',{
     {period:'5.17~19',agency:'중앙-케이스',      method:'전화',vals:[41,38],    rev:false},
     {period:'5.16~20',agency:'KBS-한국',          method:'전화',vals:[40,39],    rev:false},
     {period:'5.19~20',agency:'여론조사꽃',          method:'ARS', vals:[44.5,46.1],rev:true},
+    {period:'5.23',   agency:'올리서치-비전',       method:'ARS', vals:[41.9,46.1],rev:true},
   ]
 });
 
@@ -783,7 +784,7 @@ defRegion('bnorth',{
     {name:'한동훈',party:'무소속',color:'#6b7280',arrow:'↑'}
   ],
   note:'하정우-박민식, 격차 10~15%p 열세. 유지권. 전화·ARS 모두 일관.<br><br>하정우-한동훈, 최근 3개 평균 격차 __HD_AVG__%p · 최소 격차 __HD_MIN__%p<br><span style="font-size:10px;opacity:.75;">※ 한동훈 30~34% 수준, 경합-열세. 채널A(5.17~19) ARS에서 34.6%로 하정우 역전 1회. 전화·ARS 방법론 차이 미미.</span>',
-  exclNote:'여론조사꽃·공정', hasRev:false,
+  exclNote:'여론조사꽃·공정·비전', hasRev:false,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (하정우-박민식)',
   colDefs:[
@@ -807,6 +808,7 @@ defRegion('bnorth',{
     {period:'5.17~19',agency:'중앙-케이스',     method:'전화',vals:[35,20,31],      rev:false},
     {period:'5.17~19',agency:'채널A-리서치',    method:'전화',vals:[32.9,20.5,34.6],rev:false},
     {period:'5.18~19',agency:'펜앤-공정',          method:'ARS', vals:[35.7,24.8,33.0],rev:false},
+    {period:'5.23',   agency:'올리서치-비전',       method:'ARS', vals:[34.5,18.9,41.5],rev:false},
   ]
 });
 
