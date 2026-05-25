@@ -121,7 +121,7 @@ tr:hover td{filter:brightness(.97);}
 <div class="hdr">
   <div class="hdr-top">
     <div class="hdr-title">6.3 국민의힘 여론조사 판세 보드</div>
-    <div class="hdr-date">2026.04.25.~05.24. (15시 기준)</div>
+    <div class="hdr-date">2026.04.25.~05.25. (16시 기준)</div>
     <div class="hdr-date" style="color:#94a3b8;font-size:10px;margin-top:2px;">광역자치단체장, 재·보궐 선거</div>
   </div>
   <div class="nav">
@@ -267,7 +267,7 @@ function makeCard(name,panse,trend,note,sid){
   ['부산','열세','유지','박형준 -','busan'],
   ['대구','경합','유지','추경호 -','daegu'],
   ['경남','경합','유지','박완수 -','gyeongnam'],
-  ['충남','경합-열세','▲ 상승','김태흠 ▲','chungnam'],
+  ['충남','경합-열세','— 유지','박수현 -','chungnam'],
   ['울산','경합-열세','유지','김두겸 -','ulsan'],
   ['경기','열세','유지','양향자 -','gyeonggi'],
   ['강원','열세','유지','김진태 -','gangwon'],
@@ -751,9 +751,9 @@ defRegion('gangwon',{
 // 충남
 // ============================================================
 defRegion('chungnam',{
-  name:'충남', panse:'경합-열세', trend:'▲ 상승 (김태흠)', trendColor:'#dc2626',
-  candidates:[{name:'박수현',party:'민주',color:'#1d4ed8',arrow:'↓'},{name:'김태흠',party:'국민',color:'#dc2626',arrow:'↑'}],
-  note:'역전 조사 1회(뉴스핌-리얼 ARS, 5.18~19 김태흠 43.9%>박수현 43.5%). 격차 급격 수렴. 경합 진입.',
+  name:'충남', panse:'경합-열세', trend:'— 유지 (박수현)', trendColor:'#64748b',
+  candidates:[{name:'박수현',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'김태흠',party:'국민',color:'#dc2626',arrow:'-'}],
+  note:'역전 조사 1회(뉴스핌-리얼 ARS, 5.18~19 김태흠 43.9%>박수현 43.5%). 굿모닝충청-리얼(5.22~23) ARS에서 박수현 49.3%:김태흠 38.5%로 리드 재확인(10.8%p).',
   hasRev:false,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (민주-국민)',
@@ -770,6 +770,7 @@ defRegion('chungnam',{
     {period:'5.18~19',agency:'뉴스핌-리얼',        method:'ARS', vals:[43.5,43.9],rev:true},
     {period:'5.16~20',agency:'KBS-한국',            method:'전화',vals:[41,37],    rev:false},
     {period:'5.18~19',agency:'여론조사꽃',            method:'전화',vals:[47.5,29.2],rev:false},
+    {period:'5.22~23',agency:'굿모닝충청-리얼',       method:'ARS', vals:[49.3,38.5],rev:false},
   ]
 });
 
@@ -808,6 +809,7 @@ defRegion('bnorth',{
     {period:'5.17~19',agency:'중앙-케이스',     method:'전화',vals:[35,20,31],      rev:false},
     {period:'5.17~19',agency:'채널A-리서치',    method:'전화',vals:[32.9,20.5,34.6],rev:false},
     {period:'5.18~19',agency:'펜앤-공정',          method:'ARS', vals:[35.7,24.8,33.0],rev:false},
+    {period:'5.21~22',agency:'여론조사꽃',         method:'ARS', vals:[36.9,20.4,36.3],rev:false},
     {period:'5.23',   agency:'올리서치-비전',       method:'ARS', vals:[34.5,18.9,41.5],rev:false},
   ]
 });
@@ -845,6 +847,7 @@ defRegion('pyeongtaek',{
     {period:'5.16~17',agency:'조선-메트',   method:'전화',vals:[25,20,26],      rev:true},
     {period:'5.16~18',agency:'MBC-코리아',  method:'전화',vals:[31,17,27],      rev:false},
     {period:'5.17~19',agency:'중앙-케이스',   method:'전화',vals:[29,17,23],      rev:false},
+    {period:'5.21~22',agency:'여론조사꽃',   method:'ARS', vals:[28.9,20.6,24.9],rev:false},
   ]
 });
 
@@ -896,7 +899,7 @@ function initOther(id){
           <tr class="o-열세"><td>대전</td><td>열세</td><td>5.18~19 허태정 44.2% 이장우 41.6% (펜앤-공정·ARS ※단순 참고) / 5.16~20 허태정 46% 이장우 32% (KBS·전화) / 5.19~20 허태정 51.4% 이장우 37% (뉴스핌-리얼·ARS)</td></tr>
           <tr class="o-열세"><td>세종</td><td>열세</td><td>5.16~20 조상호 51% 최민호 26% (KBS·전화)</td></tr>
           <tr class="o-열세"><td>광주·전남</td><td>열세</td><td></td></tr>
-          <tr class="o-열세"><td>전북</td><td>열세</td><td>5.18~20 이원택 39% 김관영 37% (KBS-엠브·전화)</td></tr>
+          <tr class="o-열세"><td>전북</td><td>열세</td><td>5.18~20 이원택 39% 김관영 37% (KBS-엠브·전화) / 5.23~24 김관영 44.1% 이원택 40% (CBS-KSOI·ARS)</td></tr>
           <tr class="o-열세"><td>제주</td><td>열세</td><td></td></tr>
         </tbody>
       </table></div>
