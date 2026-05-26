@@ -121,7 +121,7 @@ tr:hover td{filter:brightness(.97);}
 <div class="hdr">
   <div class="hdr-top">
     <div class="hdr-title">6.3 국민의힘 여론조사 판세 보드</div>
-    <div class="hdr-date">2026.04.25.~05.25. (16시 기준)</div>
+    <div class="hdr-date">2026.04.25.~05.26. (13시 기준)</div>
     <div class="hdr-date" style="color:#94a3b8;font-size:10px;margin-top:2px;">광역자치단체장, 재·보궐 선거</div>
   </div>
   <div class="nav">
@@ -133,10 +133,11 @@ tr:hover td{filter:brightness(.97);}
   <button class="ntab" onclick="showSec('daegu',this)">대구</button>
   <button class="ntab" onclick="showSec('gyeongnam',this)">경남</button>
   <button class="ntab" onclick="showSec('chungnam',this)">충남</button>
-  <button class="ntab" onclick="showSec('daejeon',this)">대전</button>
   <button class="ntab" onclick="showSec('ulsan',this)">울산</button>
+  <button class="ntab" onclick="showSec('daejeon',this)">대전</button>
   <button class="ntab" onclick="showSec('gyeonggi',this)">경기</button>
   <button class="ntab" onclick="showSec('gangwon',this)">강원</button>
+  <button class="ntab" onclick="showSec('chungbuk',this)">충북</button>
   <button class="ntab" onclick="showSec('others',this)">지선 기타</button>
   <span class="sep">|</span>
   <button class="ntab rebo" onclick="showSec('bnorth',this)">부산 북구갑</button>
@@ -189,6 +190,7 @@ tr:hover td{filter:brightness(.97);}
 <div id="sec-ulsan" class="sec"><div class="chart-wrap"><div class="card" id="card-ulsan"></div></div></div>
 <div id="sec-gyeonggi" class="sec"><div class="chart-wrap"><div class="card" id="card-gyeonggi"></div></div></div>
 <div id="sec-gangwon" class="sec"><div class="chart-wrap"><div class="card" id="card-gangwon"></div></div></div>
+<div id="sec-chungbuk" class="sec"><div class="chart-wrap"><div class="card" id="card-chungbuk"></div></div></div>
 <div id="sec-chungnam" class="sec"><div class="chart-wrap"><div class="card" id="card-chungnam"></div></div></div>
 <div id="sec-daejeon" class="sec"><div class="chart-wrap"><div class="card" id="card-daejeon"></div></div></div>
 <div id="sec-others" class="sec"><div class="chart-wrap" style="max-width:760px;margin:0 auto;padding:0 16px;"><div class="other-card" id="card-others"></div></div></div>
@@ -275,7 +277,7 @@ function makeCard(name,panse,trend,note,sid){
   ['강원','열세','유지','김진태 -','gangwon'],
   ['경북','우세','-','—',null],
   ['인천','열세','-','—',null],
-  ['충북','열세','-','—',null],
+  ['충북','열세','유지','김영환 -','chungbuk'],
   ['대전','경합-열세','▲ 상승','이장우 ▲','daejeon'],['세종','열세','-','—',null],
   ['광주·전남','열세','-','—',null],['전북','열세','-','—',null],['제주','열세','-','—',null],
 ].forEach(r=>document.getElementById('cr-gwang').appendChild(makeCard(...r)));
@@ -661,13 +663,13 @@ defRegion('gyeongnam',{
 // ============================================================
 defRegion('ulsan',{
   name:'울산', panse:'경합-열세', trend:'— 유지', trendColor:'#64748b',
-  trend2:'※ 5.23~24 단일화 여론조사 예정',
+  trend2:'※ 진보 단일화 무산 — 3파전 확정',
   candidates:[
     {name:'김상욱',party:'민주',color:'#1d4ed8',arrow:'-'},
     {name:'김두겸',party:'국민',color:'#dc2626',arrow:'-'},
     {name:'김종훈',party:'기타',color:'#6b7280',arrow:'-',dash:true}
   ],
-  note:'역전 조사 1회(KBS울산-공정 ARS). 진보 단일화(김상욱+김종훈) 예정. 단일화 결과가 최대 변수.',
+  note:'역전 조사 1회(KBS울산-공정 ARS). 진보 단일화 무산 — 3파전 확정. 김종훈 표분산으로 김두겸에 유리한 구도.',
   exclNote:'여론조사꽃·공정', hasRev:true,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (민주-국민)',
@@ -752,6 +754,29 @@ defRegion('gangwon',{
 });
 
 // ============================================================
+// 충북
+// ============================================================
+defRegion('chungbuk',{
+  name:'충북', panse:'열세', trend:'— 유지', trendColor:'#64748b',
+  candidates:[{name:'신용한',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'김영환',party:'국민',color:'#dc2626',arrow:'-'}],
+  note:'역전 조사 없음. ARS 기준 리얼(4.28~29) +10.8%p → 뉴스핌-리얼(5.20~21) +4.6%p — 격차 수렴 추세. 조사 수 적어 판세 단정 어려움.',
+  exclNote:'여론조사꽃', hasRev:false,
+  gapFn:r=>r.vals[0]-r.vals[1],
+  gapLabel:'격차 (민주-국민)',
+  colDefs:[
+    {label:'조사 기간'},{label:'조사 기관'},{label:'방법'},
+    {label:'신용한',color:'#1d4ed8'},{label:'김영환',color:'#dc2626'},
+    {label:'격차 (민주-국민)'}
+  ],
+  yMin:20, yMax:58, y2Min:0, y2Max:25,
+  rows:[
+    {period:'4.28~29',agency:'리얼',         method:'ARS', vals:[49.5,38.7],rev:false},
+    {period:'5.19~20',agency:'여론조사꽃',   method:'전화',vals:[47.5,28.3],rev:false},
+    {period:'5.20~21',agency:'뉴스핌-리얼',  method:'ARS', vals:[45.4,40.8],rev:false},
+  ]
+});
+
+// ============================================================
 // 충남
 // ============================================================
 defRegion('chungnam',{
@@ -784,7 +809,7 @@ defRegion('chungnam',{
 defRegion('daejeon',{
   name:'대전', panse:'경합-열세', trend:'▲ 상승 (이장우)', trendColor:'#dc2626',
   candidates:[{name:'허태정',party:'민주',color:'#1d4ed8',arrow:'↓'},{name:'이장우',party:'국민',color:'#dc2626',arrow:'↑'}],
-  note:'역전 조사 1회(뉴스핌-알앤 ARS, 5.24 이장우 46.5%>허태정 45.6%). 전화 vs ARS 방법론 차이 뚜렷: KBS(5.16~20) 전화 14%p / 뉴스핌-리얼 ARS 14.4%p → 뉴스핌-알앤 ARS 역전(-0.9%p).',
+  note:'역전 조사 1회(뉴스핌-알앤 ARS, 5.24 이장우 46.5%>허태정 45.6%). 직전 ARS(뉴스핌-리얼 5.19~20)도 14.4%p 허태정 우세 — 방법론 차이가 아닌 기관별 편차. 뉴스핌-알앤 단독 역전으로 추이 주목.',
   exclNote:'펜앤-공정', hasRev:true,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (민주-국민)',
@@ -924,7 +949,6 @@ function initOther(id){
         <tbody>
           <tr class="o-우세"><td>경북</td><td>우세</td><td></td></tr>
           <tr class="o-열세"><td>인천</td><td>열세</td><td></td></tr>
-          <tr class="o-열세"><td>충북</td><td>열세</td><td>4.28~29 신용한 49.5% 김영환 38.7% (리얼·ARS) / 5.19~20 신용한 47.5% 김영환 28.3% (여론조사꽃·전화 ※단순 참고) / 5.20~21 신용한 45.4% 김영환 40.8% (뉴스핌-리얼·ARS)</td></tr>
           <tr class="o-열세"><td>세종</td><td>열세</td><td>5.16~20 조상호 51% 최민호 26% (KBS·전화)</td></tr>
           <tr class="o-열세"><td>광주·전남</td><td>열세</td><td></td></tr>
           <tr class="o-열세"><td>전북</td><td>열세</td><td>5.18~20 이원택 39% 김관영 37% (KBS-엠브·전화) / 5.21~22 김관영 47.3% 이원택 38.7% (새전북-한길·ARS) / 5.23~24 김관영 44.1% 이원택 40% (CBS-KSOI·ARS)</td></tr>
