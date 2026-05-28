@@ -104,6 +104,9 @@ tr:hover td{filter:brightness(.97);}
 .g-jk-mid td{background:#aab8dc!important;}
 .g-jk-dark td{background:#1e3a8a!important;color:#fff!important;}
 .g-jk-dark td.mono{color:#fff!important;}
+.g-hd-light td{background:#f1f5f9!important;}
+.g-hd-mid td{background:#e2e8f0!important;}
+.g-hd-dark td{background:#cbd5e1!important;}
 .tbl-legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
 .tl{display:flex;align-items:center;gap:4px;font-size:10.5px;color:#475569;}
 .tl-box{width:13px;height:13px;border-radius:3px;border:1px solid rgba(0,0,0,.08);}
@@ -438,14 +441,16 @@ function renderTable(prefix, rows, colDefs, gapFn, cfg){
   rows.forEach(r=>{
     const g = +gapFn(r).toFixed(1);
     const excl = isExcl(r.agency);
+    const extraGap = cfg && cfg.extraGapFn ? +cfg.extraGapFn(r).toFixed(1) : null;
+    const egAbs = extraGap===null ? 0 : Math.abs(extraGap);
     const cls = (cfg && cfg.jkRevColor && r.rev && !excl)
       ? (g<5 ? 'g-jk-light' : g<10 ? 'g-jk-mid' : 'g-jk-dark')
+      : (cfg && cfg.hdRevColor && extraGap!==null && extraGap<0 && !excl)
+      ? (egAbs<5 ? 'g-hd-light' : egAbs<10 ? 'g-hd-mid' : 'g-hd-dark')
       : gClass(g, excl, r.rev, cfg ? cfg.tableRevColor !== false : true);
     const tr = document.createElement('tr');
     tr.className = cls;
     const isArs = r.method==='ARS';
-    const extraGap = cfg && cfg.extraGapFn ? +cfg.extraGapFn(r).toFixed(1) : null;
-    const egAbs = extraGap===null ? 0 : Math.abs(extraGap);
     const egBg = extraGap===null ? '' : (isExcl(r.agency) ? 'background:#fff!important' : extraGap<0 ? (egAbs<5 ? 'background:#f1f5f9!important;color:#64748b' : egAbs<10 ? 'background:#e2e8f0!important;color:#475569' : 'background:#cbd5e1!important;color:#334155') : egAbs<5 ? 'background:#dbeafe!important;color:#1e40af!important' : egAbs<10 ? 'background:#93c5fd!important;color:#1e3a8a!important' : 'background:#60a5fa!important;color:#0f172a!important');
     const cells = [
       `<td class="lc">${r.period}</td>`,
@@ -909,6 +914,7 @@ defRegion('bnorth',{
   exclNote:'여론조사꽃·공정·비전', hasRev:false,
   statsNote:'※ 평균·최소 격차 = 1위(하정우·한동훈 중) ↔ 박민식 기준',
   statsFn:r=>Math.max(r.vals[0],r.vals[2])-r.vals[1],
+  hdRevColor:true,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (하정우-박민식)',
   colDefs:[
