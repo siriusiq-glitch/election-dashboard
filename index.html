@@ -290,7 +290,7 @@ function makeCard(name,panse,trend,note,sid){
   ['부산 북구갑','열세','유지','박민식 -','bnorth'],
   ['경기 평택을','열세','유지','유의동 -','pyeongtaek'],
   ['충남 공주부여청양','경합','-','윤용근 -','gongju'],
-  ['대구 달성','경합-우세','-','이진숙 -',null],['울산 남구갑','경합-우세','▼ 수렴','김태규 ↓','ulsangap'],['경기 안산갑','열세','-','—',null],
+  ['대구 달성','경합-우세','-','이진숙 -',null],['울산 남구갑','경합-우세','— 유지','김태규 -','ulsangap'],['경기 안산갑','열세','-','—',null],
   ['경기 하남갑','열세','-','—',null],['인천 계양을','열세','-','—',null],
   ['인천 연수갑','열세','-','—',null],['충남 아산을','열세','-','—',null],
   ['전북 군산갑','열세','-','—',null],['전북 군산을','열세','-','—',null],
@@ -858,24 +858,24 @@ defRegion('chungnam',{
 // ============================================================
 defRegion('daejeon',{
   name:'대전', panse:'열세', trend:'▼ 하락 (이장우)', trendColor:'#64748b',
-  candidates:[{name:'이장우',party:'국민',color:'#dc2626',arrow:'↓'},{name:'허태정',party:'민주',color:'#1d4ed8',arrow:'↑'}],
-  note:'역전 조사 1회(뉴스핌-알앤 ARS, 5.24 이장우 46.5%). 이후 대전MBC-코리아(전화 −14%p)·금강-한민(ARS −11.3%p) 허태정 두 자릿수 리드 재확인. 뉴스핌-알앤 단독 역전은 기관별 편차. 열세 유지.',
+  candidates:[{name:'허태정',party:'민주',color:'#1d4ed8',arrow:'↑'},{name:'이장우',party:'국민',color:'#dc2626',arrow:'↓'}],
+  note:'역전 조사 1회(뉴스핌-알앤 ARS, 5.24 이장우 46.5%). 이후 대전MBC-코리아(전화 14%p)·금강-한민(ARS 11.3%p) 허태정 두 자릿수 리드 재확인. 뉴스핌-알앤 단독 역전은 기관별 편차. 열세 유지.',
   exclNote:'펜앤-공정', hasRev:true,
   gapFn:r=>r.vals[0]-r.vals[1],
-  gapLabel:'격차 (국민-민주)',
+  gapLabel:'격차 (민주-국민)',
   colDefs:[
     {label:'조사 기간'},{label:'조사 기관'},{label:'방법'},
-    {label:'이장우',color:'#dc2626'},{label:'허태정',color:'#1d4ed8'},
-    {label:'격차 (국민-민주)'}
+    {label:'허태정',color:'#1d4ed8'},{label:'이장우',color:'#dc2626'},
+    {label:'격차 (민주-국민)'}
   ],
-  yMin:25, yMax:60, y2Min:-20, y2Max:5,
+  yMin:25, yMax:60, y2Min:-5, y2Max:25,
   rows:[
-    {period:'5.16~20',agency:'KBS-한국',     method:'전화',vals:[32,46],   rev:false},
-    {period:'5.18~19',agency:'펜앤-공정',    method:'ARS', vals:[41.6,44.2],rev:false},
-    {period:'5.19~20',agency:'뉴스핌-리얼',  method:'ARS', vals:[37,51.4], rev:false},
-    {period:'5.24',   agency:'뉴스핌-알앤',  method:'ARS', vals:[46.5,45.6],rev:true},
-    {period:'5.24~25',agency:'대전MBC-코리아',method:'전화',vals:[30,44],   rev:false},
-    {period:'5.24~25',agency:'금강-한민',     method:'ARS', vals:[37.2,48.5],rev:false},
+    {period:'5.16~20',agency:'KBS-한국',     method:'전화',vals:[46,32],   rev:false},
+    {period:'5.18~19',agency:'펜앤-공정',    method:'ARS', vals:[44.2,41.6],rev:false},
+    {period:'5.19~20',agency:'뉴스핌-리얼',  method:'ARS', vals:[51.4,37], rev:false},
+    {period:'5.24',   agency:'뉴스핌-알앤',  method:'ARS', vals:[45.6,46.5],rev:true},
+    {period:'5.24~25',agency:'대전MBC-코리아',method:'전화',vals:[44,30],   rev:false},
+    {period:'5.24~25',agency:'금강-한민',     method:'ARS', vals:[48.5,37.2],rev:false},
   ]
 });
 
@@ -990,7 +990,7 @@ defRegion('gongju',{
 // 울산 남구갑
 // ============================================================
 defRegion('ulsangap',{
-  name:'울산 남구갑', panse:'경합-우세', trend:'▼ 수렴 (김태규)', trendColor:'#dc2626',
+  name:'울산 남구갑', panse:'경합-우세', trend:'— 유지 (김태규)', trendColor:'#dc2626',
   candidates:[{name:'전태진',party:'민주',color:'#1d4ed8',arrow:'↑'},{name:'김태규',party:'국민',color:'#dc2626',arrow:'↓'}],
   note:'격차 15.7%p(5.4~5)→5.8%p(5.18~19)→0.5%p(5.22~23)→0.3%p(5.24~25)로 급격 수렴, 경합 전환. 단순참고 펜앤-공정(5.26~27) ARS 3.4%p 재이격. 최근 3개 비참고 평균 2.2%p.',
   exclNote:'펜앤-공정', hasRev:false,
@@ -1032,7 +1032,7 @@ function initOther(id){
           <tr class="o-열세"><td>인천</td><td>열세</td><td></td></tr>
           <tr class="o-열세"><td>세종</td><td>열세</td><td>5.16~20 조상호 51% 최민호 26% (KBS·전화)</td></tr>
           <tr class="o-열세"><td>광주·전남</td><td>열세</td><td></td></tr>
-          <tr class="o-무소속"><td>전북</td><td>열세 (무소속 우위)</td><td>5.18~20 이원택 39% 김관영 37% (KBS-엠브·전화) / 5.21~22 김관영 47.3% 이원택 38.7% (새전북-한길·ARS) / 5.23~24 김관영 44.1% 이원택 40% (CBS-KSOI·ARS) / 5.24~25 김관영 45% 이원택 38.1% (여론조사꽃·전화·단순참고) / 5.25~26 김관영 51.9% 이원택 35.3% (전라-조원·ARS)</td></tr>
+          <tr class="o-무소속"><td>전북</td><td>(무소속 우세)</td><td>5.18~20 이원택 39% 김관영 37% (KBS-엠브·전화) / 5.21~22 김관영 47.3% 이원택 38.7% (새전북-한길·ARS) / 5.23~24 김관영 44.1% 이원택 40% (CBS-KSOI·ARS) / 5.24~25 김관영 45% 이원택 38.1% (여론조사꽃·전화·단순참고) / 5.25~26 김관영 51.9% 이원택 35.3% (전라-조원·ARS)</td></tr>
           <tr class="o-열세"><td>제주</td><td>열세</td><td></td></tr>
         </tbody>
       </table></div>
