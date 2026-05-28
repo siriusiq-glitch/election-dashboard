@@ -408,8 +408,10 @@ function buildRegionCard(prefix, cfg){
 }
 
 function renderStats(prefix, rows, gapFn){
+  const cfg2 = REGION_CONFIGS[prefix];
+  const sFn = (cfg2 && cfg2.statsFn) ? cfg2.statsFn : gapFn;
   const valid = rows.filter(r=>!isExcl(r.agency));
-  const gaps = valid.map(r=>+gapFn(r).toFixed(1));
+  const gaps = valid.map(r=>+sFn(r).toFixed(1));
   const r3 = gaps.slice(-3);
   const avg = r3.length?(r3.reduce((a,b)=>a+b,0)/r3.length).toFixed(1):'—';
   const mn = gaps.length?Math.min(...gaps).toFixed(1):'—';
@@ -438,7 +440,7 @@ function renderTable(prefix, rows, colDefs, gapFn, cfg){
     const isArs = r.method==='ARS';
     const extraGap = cfg && cfg.extraGapFn ? +cfg.extraGapFn(r).toFixed(1) : null;
     const egAbs = extraGap===null ? 0 : Math.abs(extraGap);
-    const egBg = extraGap===null ? '' : (isExcl(r.agency) ? 'background:#fff!important' : extraGap<0 ? (egAbs<5 ? 'background:#f1f5f9!important;color:#64748b' : egAbs<10 ? 'background:#e2e8f0!important;color:#475569' : 'background:#cbd5e1!important;color:#334155') : egAbs<5 ? 'background:#dbeafe!important' : egAbs<10 ? 'background:#93c5fd!important' : 'background:#1d4ed8!important;color:#fff!important');
+    const egBg = extraGap===null ? '' : (isExcl(r.agency) ? 'background:#fff!important' : extraGap<0 ? (egAbs<5 ? 'background:#f1f5f9!important;color:#64748b' : egAbs<10 ? 'background:#e2e8f0!important;color:#475569' : 'background:#cbd5e1!important;color:#334155') : egAbs<5 ? 'background:#dbeafe!important;color:#1e40af!important' : egAbs<10 ? 'background:#93c5fd!important;color:#1e3a8a!important' : 'background:#1d4ed8!important;color:#bfdbfe!important');
     const cells = [
       `<td class="lc">${r.period}</td>`,
       `<td class="lc">${r.agency}${excl?' <span class="tag-w">참고</span>':''}</td>`,
@@ -899,7 +901,8 @@ defRegion('bnorth',{
   ],
   note:'하정우-박민식, 격차 10~23%p. 전화·ARS 모두 일관.<br><br>하정우-한동훈, 최근 3개 평균 격차 __HD_AVG__%p · 최소 격차 __HD_MIN__%p<br><span style="font-size:10px;opacity:.75;">※ 한동훈 37~43% 수준으로 상승, 5.23 이후 5회 연속 1위. 채널A(5.17~19)·에이스(5.23~24)·부산MBC(5.24~25)·CBS-KSOI(5.26~27)·MBC-코리아(5.26~27) 역전(유효). 비전(5.23) 단순참고 역전 추가.</span>',
   exclNote:'여론조사꽃·공정·비전', hasRev:false,
-  statsNote:'※ 최근 3개 평균 격차 · 최소 격차 · 역전 조사 = 하정우 ↔ 박민식 기준',
+  statsNote:'※ 평균·최소 격차 = 1위(하정우·한동훈 중) ↔ 박민식 기준',
+  statsFn:r=>Math.max(r.vals[0],r.vals[2])-r.vals[1],
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (하정우-박민식)',
   colDefs:[
