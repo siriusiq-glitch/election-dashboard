@@ -946,8 +946,9 @@ defRegion('pyeongtaek',{
     {name:'유의동',party:'국민',color:'#dc2626',arrow:'-'},
     {name:'조국',party:'조혁',color:'#1e3a8a',arrow:'↑'}
   ],
-  note:'김용남(민주) 1위·조국(조혁) 2위·유의동(국민) 3위 고착. MBC-코리아(5.26~27) 전화 조국 1위(29%, 김용남 26%). 유의동 열세 유지.<br><b>전화면접 vs ARS:</b> 전화 격차(1등-유의동) 약 9~10%p, ARS 약 8%p.',
+  note:'조국(조혁) 상승세. 초반 김용남(민주) 1위 구도에서 최근 조국 1위 조사 증가(유효 4회). 최근 MBC-코리아(5.26~27) 전화 조국 29%·김용남 26%. 유의동(국민) 3위 고착, 열세 유지.<br><b>전화면접 vs ARS:</b> 전화 격차(1등-유의동) 9~14%p, ARS 7~9%p.',
   exclNote:'여론조사꽃', hasRev:true, tableRevColor:false, revLabel:'조국 역전 조사',
+  statsNote:'※ 평균·최소 격차 = 1위(김용남·조국 중) ↔ 유의동 기준',
   gapFn:r=>Math.max(r.vals[0],r.vals[2])-r.vals[1],
   gapLabel:'격차 (1등-유의동)',
   colDefs:[
