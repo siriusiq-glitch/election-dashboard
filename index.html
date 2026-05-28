@@ -100,6 +100,10 @@ tr:hover td{filter:brightness(.97);}
 .g-rev-mid td{background:#fca5a5!important;}
 .g-rev-dark td{background:#b91c1c!important;color:#fff!important;}
 .g-rev-dark td.mono{color:#fff!important;}
+.g-jk-light td{background:#dde6f5!important;}
+.g-jk-mid td{background:#aab8dc!important;}
+.g-jk-dark td{background:#1e3a8a!important;color:#fff!important;}
+.g-jk-dark td.mono{color:#fff!important;}
 .tbl-legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
 .tl{display:flex;align-items:center;gap:4px;font-size:10.5px;color:#475569;}
 .tl-box{width:13px;height:13px;border-radius:3px;border:1px solid rgba(0,0,0,.08);}
@@ -434,13 +438,15 @@ function renderTable(prefix, rows, colDefs, gapFn, cfg){
   rows.forEach(r=>{
     const g = +gapFn(r).toFixed(1);
     const excl = isExcl(r.agency);
-    const cls = gClass(g, excl, r.rev, cfg ? cfg.tableRevColor !== false : true);
+    const cls = (cfg && cfg.jkRevColor && r.rev && !excl)
+      ? (g<5 ? 'g-jk-light' : g<10 ? 'g-jk-mid' : 'g-jk-dark')
+      : gClass(g, excl, r.rev, cfg ? cfg.tableRevColor !== false : true);
     const tr = document.createElement('tr');
     tr.className = cls;
     const isArs = r.method==='ARS';
     const extraGap = cfg && cfg.extraGapFn ? +cfg.extraGapFn(r).toFixed(1) : null;
     const egAbs = extraGap===null ? 0 : Math.abs(extraGap);
-    const egBg = extraGap===null ? '' : (isExcl(r.agency) ? 'background:#fff!important' : extraGap<0 ? (egAbs<5 ? 'background:#f1f5f9!important;color:#64748b' : egAbs<10 ? 'background:#e2e8f0!important;color:#475569' : 'background:#cbd5e1!important;color:#334155') : egAbs<5 ? 'background:#dbeafe!important;color:#1e40af!important' : egAbs<10 ? 'background:#93c5fd!important;color:#1e3a8a!important' : 'background:#1d4ed8!important;color:#bfdbfe!important');
+    const egBg = extraGap===null ? '' : (isExcl(r.agency) ? 'background:#fff!important' : extraGap<0 ? (egAbs<5 ? 'background:#f1f5f9!important;color:#64748b' : egAbs<10 ? 'background:#e2e8f0!important;color:#475569' : 'background:#cbd5e1!important;color:#334155') : egAbs<5 ? 'background:#dbeafe!important;color:#1e40af!important' : egAbs<10 ? 'background:#93c5fd!important;color:#1e3a8a!important' : 'background:#60a5fa!important;color:#0f172a!important');
     const cells = [
       `<td class="lc">${r.period}</td>`,
       `<td class="lc">${r.agency}${excl?' <span class="tag-w">참고</span>':''}</td>`,
@@ -947,7 +953,7 @@ defRegion('pyeongtaek',{
     {name:'조국',party:'조혁',color:'#1e3a8a',arrow:'↑'}
   ],
   note:'조국(조혁) 상승세. 초반 김용남(민주) 1위 구도에서 최근 조국 1위 조사 증가(유효 4회). 최근 MBC-코리아(5.26~27) 전화 조국 29%·김용남 26%. 유의동(국민) 3위 고착, 열세 유지.<br><b>전화면접 vs ARS:</b> 전화 격차(1등-유의동) 9~14%p, ARS 7~9%p.',
-  exclNote:'여론조사꽃', hasRev:true, tableRevColor:false, revLabel:'조국 역전 조사',
+  exclNote:'여론조사꽃', hasRev:true, tableRevColor:false, jkRevColor:true, revLabel:'조국 역전 조사',
   statsNote:'※ 평균·최소 격차 = 1위(김용남·조국 중) ↔ 유의동 기준',
   gapFn:r=>Math.max(r.vals[0],r.vals[2])-r.vals[1],
   gapLabel:'격차 (1등-유의동)',
