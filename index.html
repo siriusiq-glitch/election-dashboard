@@ -116,7 +116,6 @@ tr:hover td{filter:brightness(.97);}
 .o-경합-red td{background:#fef2f2;color:#991b1b;}
 .o-우세 td{background:#b91c1c;color:#fff;}
 .o-무소속 td{background:#e2e8f0;color:#334155;}
-#card-bnorth .pnote{background:linear-gradient(172deg,#e2e8f0 60%,#dbeafe 60%)!important;border-color:#94a3b8!important;color:#1e293b!important;}
 </style>
 </head>
 <body>
@@ -297,6 +296,10 @@ function makeCard(name,panse,trend,note,sid){
   ['전북 군산갑','열세','-','—',null],['전북 군산을','열세','-','—',null],
   ['광주 광산을','열세','-','—',null],['제주 서귀포','열세','-','—',null],
 ].forEach(r=>document.getElementById('cr-rebo').appendChild(makeCard(...r)));
+// 부산 북구갑 요약 카드: 상단 60% 회색 / 하단 40% 파란색 / 사선 구분
+Array.from(document.querySelectorAll('#cr-rebo .pcard')).find(
+  c=>c.querySelector('.pc-name')&&c.querySelector('.pc-name').textContent==='부산 북구갑'
+)?.style.setProperty('background','linear-gradient(170deg,#64748b 60%,#1d4ed8 60%)');
 
 // ============================================================
 // 차트 렌더링 엔진
