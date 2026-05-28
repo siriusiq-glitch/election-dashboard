@@ -116,6 +116,7 @@ tr:hover td{filter:brightness(.97);}
 .o-경합-red td{background:#fef2f2;color:#991b1b;}
 .o-우세 td{background:#b91c1c;color:#fff;}
 .o-무소속 td{background:#e2e8f0;color:#334155;}
+#card-bnorth .pnote{background:linear-gradient(172deg,#e2e8f0 60%,#dbeafe 60%)!important;border-color:#94a3b8!important;color:#1e293b!important;}
 </style>
 </head>
 <body>
@@ -135,9 +136,9 @@ tr:hover td{filter:brightness(.97);}
   <button class="ntab" onclick="showSec('gyeongnam',this)">경남</button>
   <button class="ntab" onclick="showSec('chungnam',this)">충남</button>
   <button class="ntab" onclick="showSec('ulsan',this)">울산</button>
-  <button class="ntab" onclick="showSec('daejeon',this)">대전</button>
   <button class="ntab" onclick="showSec('gyeonggi',this)">경기</button>
   <button class="ntab" onclick="showSec('gangwon',this)">강원</button>
+  <button class="ntab" onclick="showSec('daejeon',this)">대전</button>
   <button class="ntab" onclick="showSec('chungbuk',this)">충북</button>
   <button class="ntab" onclick="showSec('others',this)">지선 기타</button>
   <span class="sep">|</span>
@@ -276,9 +277,9 @@ function makeCard(name,panse,trend,note,sid){
   ['경남','경합-우세','▲ 상승','박완수 ▲','gyeongnam'],
   ['충남','경합-열세','— 유지','김태흠 -','chungnam'],
   ['울산','경합-열세','유지','김두겸 -','ulsan'],
-  ['대전','열세','▼ 하락','이장우 ↓','daejeon'],
   ['경기','열세','유지','양향자 -','gyeonggi'],
   ['강원','열세','유지','김진태 -','gangwon'],
+  ['대전','열세','▼ 하락','이장우 ↓','daejeon'],
   ['충북','열세','유지','김영환 -','chungbuk'],
   ['경북','우세','-','—',null],
   ['인천','열세','-','—',null],
