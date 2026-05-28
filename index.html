@@ -437,7 +437,7 @@ function renderTable(prefix, rows, colDefs, gapFn, cfg){
     const isArs = r.method==='ARS';
     const extraGap = cfg && cfg.extraGapFn ? +cfg.extraGapFn(r).toFixed(1) : null;
     const egAbs = extraGap===null ? 0 : Math.abs(extraGap);
-    const egBg = extraGap===null ? '' : (isExcl(r.agency) ? 'background:#fff!important' : extraGap<0 ? 'background:#e2e8f0!important;color:#64748b' : egAbs<5 ? 'background:#dbeafe!important' : egAbs<10 ? 'background:#93c5fd!important' : 'background:#1d4ed8!important;color:#fff!important');
+    const egBg = extraGap===null ? '' : (isExcl(r.agency) ? 'background:#fff!important' : extraGap<0 ? (egAbs<5 ? 'background:#f1f5f9!important;color:#64748b' : egAbs<10 ? 'background:#e2e8f0!important;color:#475569' : 'background:#cbd5e1!important;color:#334155') : egAbs<5 ? 'background:#dbeafe!important' : egAbs<10 ? 'background:#93c5fd!important' : 'background:#1d4ed8!important;color:#fff!important');
     const cells = [
       `<td class="lc">${r.period}</td>`,
       `<td class="lc">${r.agency}${excl?' <span class="tag-w">참고</span>':''}</td>`,
