@@ -416,7 +416,8 @@ function renderStats(prefix, rows, gapFn){
   const revN = valid.filter(r=>r.rev).length;
   const revE = rows.filter(r=>r.rev&&isExcl(r.agency)).length;
   const revTxt = revE>0?`${revN}+${revE}회*`:`${revN}회`;
-  document.getElementById('stats-'+prefix).innerHTML=`
+  const sNote = (REGION_CONFIGS[prefix]&&REGION_CONFIGS[prefix].statsNote)?`<div style="font-size:10px;color:#94a3b8;margin-bottom:4px;padding-left:2px;">${REGION_CONFIGS[prefix].statsNote}</div>`:'';
+  document.getElementById('stats-'+prefix).innerHTML= sNote + `
     <div class="st"><div class="stv">${avg}%p</div><div class="stl">최근 3개 평균 격차</div></div>
     <div class="st"><div class="stv">${mn}%p</div><div class="stl">최소 격차</div></div>
     <div class="st"><div class="stv">${revTxt}</div><div class="stl">${(REGION_CONFIGS[prefix]&&REGION_CONFIGS[prefix].revLabel)||'역전 조사'}</div></div>
@@ -895,6 +896,7 @@ defRegion('bnorth',{
   ],
   note:'하정우-박민식, 격차 10~17%p. 전화·ARS 모두 일관.<br><br>하정우-한동훈, 최근 3개 평균 격차 __HD_AVG__%p · 최소 격차 __HD_MIN__%p<br><span style="font-size:10px;opacity:.75;">※ 한동훈 37~41% 수준으로 상승, 5.23 이후 4회 연속 1위. 채널A(5.17~19)·에이스(5.23~24)·부산MBC(5.24~25)·CBS-KSOI(5.26~27) 역전(유효). 비전(5.23) 단순참고 역전 추가.</span>',
   exclNote:'여론조사꽃·공정·비전', hasRev:false,
+  statsNote:'※ 최근 3개 평균 격차 · 최소 격차 · 역전 조사 = 하정우 ↔ 박민식 기준',
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (하정우-박민식)',
   colDefs:[
