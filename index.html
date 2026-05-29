@@ -165,8 +165,8 @@ tr:hover td{filter:brightness(.97);}
       <div style="font-size:15px;font-weight:900;color:#0f172a;">광역자치단체장 16곳</div>
       <div style="display:flex;gap:5px;flex-wrap:wrap;">
         <span style="background:#1d4ed8;color:#fff;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">열세 9</span>
-        <span style="background:#93c5fd;color:#1e3a8a;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">경합-열세 3</span>
-        <span style="background:#fca5a5;color:#7f1d1d;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">경합-우세 3</span>
+        <span style="background:#93c5fd;color:#1e3a8a;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">경합-열세 4</span>
+        <span style="background:#fca5a5;color:#7f1d1d;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">경합-우세 2</span>
         <span style="background:#b91c1c;color:#fff;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">우세 1</span>
       </div>
     </div>
@@ -283,7 +283,7 @@ function makeCard(name,panse,trend,note,sid){
   ['대구','경합-우세','▲ 상승','추경호 ▲','daegu'],
   ['경남','경합-우세','▲ 상승','박완수 ▲','gyeongnam'],
   ['충남','경합-열세','— 유지','김태흠 -','chungnam'],
-  ['울산','경합-우세','▲ 상승','김상욱 ▲','ulsan'],
+  ['울산','경합-열세','유지','김두겸 -','ulsan'],
   ['경기','열세','유지','양향자 -','gyeonggi'],
   ['강원','열세','유지','김진태 -','gangwon'],
   ['대전','열세','▼ 하락','이장우 ↓','daejeon'],
@@ -736,7 +736,7 @@ defRegion('gyeongnam',{
 // 울산 (시나리오)
 // ============================================================
 defRegion('ulsan',{
-  name:'울산', panse:'경합-우세', trend:'▲ 상승 (김상욱)', trendColor:'#1d4ed8',
+  name:'울산', panse:'경합-열세', trend:'— 유지 (김두겸)', trendColor:'#64748b',
   trend2:'※ 진보 단일화 확정 (김상욱)',
   candidates:[
     {name:'김상욱',party:'민주',color:'#1d4ed8',arrow:'↑'},
@@ -939,7 +939,7 @@ defRegion('bnorth',{
     {name:'박민식',party:'국민',color:'#dc2626',arrow:'-'},
     {name:'한동훈',party:'무소속',color:'#6b7280',arrow:'↑'}
   ],
-  note:'하정우-박민식, 격차 10~23%p. 전화·ARS 모두 일관.<br><br>하정우-한동훈, 최근 3개 평균 격차 __HD_AVG__%p · 최소 격차 __HD_MIN__%p<br><span style="font-size:10px;opacity:.75;">※ 한동훈 37~43%, 에이스(5.23) 이후 9회 연속 1위 — 채널A(5.17~19) 포함 총 10회 역전(유효). 비전·여론조사꽃 단순참고 역전 추가.</span>',
+  note:'하정우-박민식, 격차 10~23%p. 전화·ARS 모두 일관.<br><br>하정우-한동훈, 5.25~27 평균 격차 __HD_AVG__%p · 최소 격차 __HD_MIN__%p<br><span style="font-size:10px;opacity:.75;">※ 한동훈 37~43%, 에이스(5.23) 이후 9회 연속 1위 — 채널A(5.17~19) 포함 총 10회 역전(유효). 비전·여론조사꽃 단순참고 역전 추가.</span>',
   exclNote:'여론조사꽃·공정·비전', hasRev:false,
   statsNote:'※ 평균·최소 격차 = 1위(하정우·한동훈 중) ↔ 박민식 기준',
   statsFn:r=>Math.max(r.vals[0],r.vals[2])-r.vals[1],
