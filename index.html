@@ -165,8 +165,8 @@ tr:hover td{filter:brightness(.97);}
       <div style="font-size:15px;font-weight:900;color:#0f172a;">광역자치단체장 16곳</div>
       <div style="display:flex;gap:5px;flex-wrap:wrap;">
         <span style="background:#1d4ed8;color:#fff;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">열세 9</span>
-        <span style="background:#93c5fd;color:#1e3a8a;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">경합-열세 4</span>
-        <span style="background:#fca5a5;color:#7f1d1d;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">경합-우세 2</span>
+        <span style="background:#93c5fd;color:#1e3a8a;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">경합-열세 3</span>
+        <span style="background:#fca5a5;color:#7f1d1d;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">경합-우세 3</span>
         <span style="background:#b91c1c;color:#fff;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:700;">우세 1</span>
       </div>
     </div>
@@ -283,7 +283,7 @@ function makeCard(name,panse,trend,note,sid){
   ['대구','경합-우세','▲ 상승','추경호 ▲','daegu'],
   ['경남','경합-우세','▲ 상승','박완수 ▲','gyeongnam'],
   ['충남','경합-열세','— 유지','김태흠 -','chungnam'],
-  ['울산','경합-열세','유지','김두겸 -','ulsan'],
+  ['울산','경합-우세','▲ 상승','김상욱 ▲','ulsan'],
   ['경기','열세','유지','양향자 -','gyeonggi'],
   ['강원','열세','유지','김진태 -','gangwon'],
   ['대전','열세','▼ 하락','이장우 ↓','daejeon'],
@@ -736,29 +736,46 @@ defRegion('gyeongnam',{
 // 울산 (시나리오)
 // ============================================================
 defRegion('ulsan',{
-  name:'울산', panse:'경합-열세', trend:'— 유지', trendColor:'#64748b',
-  trend2:'※ 진보 단일화 예상',
+  name:'울산', panse:'경합-우세', trend:'▲ 상승 (김상욱)', trendColor:'#1d4ed8',
+  trend2:'※ 진보 단일화 확정 (김상욱)',
   candidates:[
-    {name:'김상욱',party:'민주',color:'#1d4ed8',arrow:'-'},
+    {name:'김상욱',party:'민주',color:'#1d4ed8',arrow:'↑'},
     {name:'김두겸',party:'국민',color:'#dc2626',arrow:'-'},
-    {name:'김종훈',party:'기타',color:'#6b7280',arrow:'-',dash:true}
   ],
-  note:'3파전 기준 경상일보-한길(5.25~26) 0.3%p 동률 수준. 진보 단일화 예상 — 단일화 시 에이스(20.4%p)·경상일보-한길(6.7%p) 김상욱 우위. 단일화 여부가 핵심 변수.',
-  exclNote:'여론조사꽃·공정', hasRev:true,
+  note:'단일화 확정(김상욱). 단일화 기준 에이스(20.4%p)·경상일보-한길(6.7%p) 김상욱 우위, 평균 13.5%p — 경합-우세 전환. 3파전 참고 탭 유지.',
+  exclNote:'여론조사꽃·공정', hasRev:false,
   gapFn:r=>r.vals[0]-r.vals[1],
   gapLabel:'격차 (민주-국민)',
-  yMin:10, yMax:55, y2Min:-10, y2Max:20,
+  yMin:10, yMax:65, y2Min:0, y2Max:30,
   colDefs:[
     {label:'조사 기간'},{label:'조사 기관'},{label:'방법'},
-    {label:'김상욱',color:'#1d4ed8'},{label:'김두겸',color:'#dc2626'},{label:'김종훈',color:'#6b7280'},
+    {label:'김상욱',color:'#1d4ed8'},{label:'김두겸',color:'#dc2626'},
     {label:'격차 (민주-국민)'}
   ],
   scenarios:[
     {
-      name:'3파전',
+      name:'단일화 후',
       candidates:[
-        {name:'김상욱',party:'민주',color:'#1d4ed8',arrow:'↓'},
-        {name:'김두겸',party:'국민',color:'#dc2626',arrow:'↑'},
+        {name:'김상욱',party:'민주',color:'#1d4ed8',arrow:'↑'},
+        {name:'김두겸',party:'국민',color:'#dc2626',arrow:'-'},
+      ],
+      gapFn:r=>r.vals[0]-r.vals[1],
+      colDefs:[
+        {label:'조사 기간'},{label:'조사 기관'},{label:'방법'},
+        {label:'김상욱',color:'#1d4ed8'},{label:'김두겸',color:'#dc2626'},
+        {label:'격차 (민주-국민)'}
+      ],
+      rows:[
+        {period:'5.24~25',agency:'부산일보-에이스',method:'ARS', vals:[51.2,30.8],rev:false},
+        {period:'5.25~26',agency:'여론조사꽃',    method:'ARS', vals:[50,35.8],   rev:false},
+        {period:'5.25~26',agency:'경상일보-한길', method:'ARS', vals:[43.6,36.9], rev:false},
+      ]
+    },
+    {
+      name:'3파전 참고',
+      candidates:[
+        {name:'김상욱',party:'민주',color:'#1d4ed8',arrow:'-'},
+        {name:'김두겸',party:'국민',color:'#dc2626',arrow:'-'},
         {name:'김종훈',party:'기타',color:'#6b7280',arrow:'-',dash:true}
       ],
       gapFn:r=>r.vals[0]-r.vals[1],
@@ -776,24 +793,6 @@ defRegion('ulsan',{
         {period:'5.18~19',agency:'여론조사꽃',     method:'ARS', vals:[36.7,34.7,15.8],rev:false},
         {period:'5.25~26',agency:'여론조사꽃',     method:'ARS', vals:[38.6,30.2,22.0],rev:false},
         {period:'5.25~26',agency:'경상일보-한길',  method:'ARS', vals:[35.8,35.5,19],   rev:false},
-      ]
-    },
-    {
-      name:'단일화 시',
-      candidates:[
-        {name:'김상욱',party:'민주',color:'#1d4ed8',arrow:'↑'},
-        {name:'김두겸',party:'국민',color:'#dc2626',arrow:'-'},
-      ],
-      gapFn:r=>r.vals[0]-r.vals[1],
-      colDefs:[
-        {label:'조사 기간'},{label:'조사 기관'},{label:'방법'},
-        {label:'김상욱',color:'#1d4ed8'},{label:'김두겸',color:'#dc2626'},
-        {label:'격차 (민주-국민)'}
-      ],
-      rows:[
-        {period:'5.24~25',agency:'부산일보-에이스',method:'ARS', vals:[51.2,30.8],rev:false},
-        {period:'5.25~26',agency:'여론조사꽃',    method:'ARS', vals:[50,35.8],   rev:false},
-        {period:'5.25~26',agency:'경상일보-한길', method:'ARS', vals:[43.6,36.9], rev:false},
       ]
     }
   ]
