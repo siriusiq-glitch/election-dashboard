@@ -458,7 +458,7 @@ function renderTable(prefix, rows, colDefs, gapFn, cfg){
     const tr = document.createElement('tr');
     tr.className = cls;
     const isArs = r.method==='ARS';
-    const egBg = extraGap===null ? '' : (isExcl(r.agency) ? 'background:#fff!important' : extraGap<0 ? (egAbs<5 ? 'background:#f1f5f9!important;color:#64748b' : egAbs<10 ? 'background:#e2e8f0!important;color:#475569' : 'background:#cbd5e1!important;color:#334155') : egAbs<5 ? 'background:#dbeafe!important;color:#1e40af!important' : egAbs<10 ? 'background:#93c5fd!important;color:#1e3a8a!important' : 'background:#60a5fa!important;color:#0f172a!important');
+    const egBg = extraGap===null ? '' : (isExcl(r.agency) ? 'background:#fff!important' : extraGap<0 ? (egAbs<5 ? 'background:#fef9c3!important;color:#713f12' : egAbs<10 ? 'background:#fde047!important;color:#713f12' : 'background:#ca8a04!important;color:#fff') : egAbs<5 ? 'background:#dbeafe!important;color:#1e40af!important' : egAbs<10 ? 'background:#93c5fd!important;color:#1e3a8a!important' : 'background:#60a5fa!important;color:#0f172a!important');
     const cells = [
       `<td class="lc">${r.period}</td>`,
       `<td class="lc">${r.agency}${excl?' <span class="tag-w">참고</span>':''}</td>`,
