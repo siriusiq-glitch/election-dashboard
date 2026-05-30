@@ -279,7 +279,7 @@ function makeCard(name,panse,trend,note,sid){
 
 [
   ['서울','경합-열세','▲ 상승','오세훈 ▲','seoul'],
-  ['부산','경합-열세','▲ 상승','박형준 ▲','busan'],
+  ['부산','경합-열세','유지','박형준 -','busan'],
   ['대구','경합-우세','▲ 상승','추경호 ▲','daegu'],
   ['경남','경합-우세','▲ 상승','박완수 ▲','gyeongnam'],
   ['충남','경합-열세','— 유지','김태흠 -','chungnam'],
@@ -600,8 +600,8 @@ defRegion('seoul',{
 // 부산
 // ============================================================
 defRegion('busan',{
-  name:'부산', panse:'경합-열세', trend:'▲ 상승 (박형준)', trendColor:'#dc2626',
-  candidates:[{name:'전재수',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'박형준',party:'국민',color:'#dc2626',arrow:'↑'}],
+  name:'부산', panse:'경합-열세', trend:'— 유지 (박형준)', trendColor:'#64748b',
+  candidates:[{name:'전재수',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'박형준',party:'국민',color:'#dc2626',arrow:'-'}],
   note:'역전 조사 없음. 에이스(5.25~26)·엠브(5.25~27) 1%p대 박빙. 중앙-케이스(5.26~27) 전화 16%p 등 기관별 편차 여전. 경합-열세 유지.<br><b>전화면접 vs ARS:</b> 전화 1~16%p, ARS 2~9%p.',
   exclNote:'여론조사꽃·공정', hasRev:false,
   statsAvgFilter:r=>periodInRange(r.period,25,27), statsAvgLabel:'5.25~27 평균 격차',
