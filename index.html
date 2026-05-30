@@ -101,13 +101,13 @@ tr:hover td{filter:brightness(.97);}
 .g-rev-mid td{background:#fca5a5!important;}
 .g-rev-dark td{background:#b91c1c!important;color:#fff!important;}
 .g-rev-dark td.mono{color:#fff!important;}
-.g-jk-light td{background:#dde6f5!important;}
-.g-jk-mid td{background:#aab8dc!important;}
-.g-jk-dark td{background:#1e3a8a!important;color:#fff!important;}
+.g-jk-light td{background:#ccfbf1!important;}
+.g-jk-mid td{background:#5eead4!important;color:#134e4a!important;}
+.g-jk-dark td{background:#0f766e!important;color:#fff!important;}
 .g-jk-dark td.mono{color:#fff!important;}
-.g-hd-light td{background:#f1f5f9!important;}
-.g-hd-mid td{background:#e2e8f0!important;}
-.g-hd-dark td{background:#cbd5e1!important;}
+.g-hd-light td{background:#fef9c3!important;}
+.g-hd-mid td{background:#fde047!important;color:#713f12!important;}
+.g-hd-dark td{background:#ca8a04!important;color:#fff!important;}
 .tbl-legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
 .tl{display:flex;align-items:center;gap:4px;font-size:10.5px;color:#475569;}
 .tl-box{width:13px;height:13px;border-radius:3px;border:1px solid rgba(0,0,0,.08);}
@@ -601,7 +601,7 @@ defRegion('seoul',{
 // ============================================================
 defRegion('busan',{
   name:'부산', panse:'경합-열세', trend:'▲ 상승 (박형준)', trendColor:'#dc2626',
-  candidates:[{name:'전재수',party:'민주',color:'#1d4ed8',arrow:'↓'},{name:'박형준',party:'국민',color:'#dc2626',arrow:'↑'}],
+  candidates:[{name:'전재수',party:'민주',color:'#1d4ed8',arrow:'-'},{name:'박형준',party:'국민',color:'#dc2626',arrow:'↑'}],
   note:'역전 조사 없음. 에이스(5.25~26)·엠브(5.25~27) 1%p대 박빙. 중앙-케이스(5.26~27) 전화 16%p 등 기관별 편차 여전. 경합-열세 유지.<br><b>전화면접 vs ARS:</b> 전화 1~16%p, ARS 2~9%p.',
   exclNote:'여론조사꽃·공정', hasRev:false,
   statsAvgFilter:r=>periodInRange(r.period,25,27), statsAvgLabel:'5.25~27 평균 격차',
@@ -987,7 +987,7 @@ defRegion('bnorth',{
 // 평택을
 // ============================================================
 defRegion('pyeongtaek',{
-  name:'경기 평택을', panse:'열세', trend:'— 유지 (유의동)',
+  name:'경기 평택을', panse:'열세', trend:'— 유지 (유의동)', trend2:'※ 보수 단일화 시 변동',
   candidates:[
     {name:'김용남',party:'민주',color:'#1d4ed8',arrow:'-'},
     {name:'유의동',party:'국민',color:'#dc2626',arrow:'-'},
